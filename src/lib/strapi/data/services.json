@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "gestion",
+    "title": "Control de Gestión Personalizado",
+    "description": "Soluciones adaptadas a tu negocio para optimizar la gestión y el control.",
+    "detalle": [
+      "Diseño de KPIs",
+      "Tableros en Excel o Power BI",
+      "Reportes mensuales",
+      "Reuniones presenciales o virtuales"
+    ],
+    "image": "/servicios/gestion.jpg",
+    "link": "/servicios/gestion",
+    "enabled": true
+  },
+  {
+    "slug": "planeamiento",
+    "title": "Planeamiento Financiero y Presupuestario",
+    "description": "Proyección y planificación para alcanzar tus objetivos económicos.",
+    "detalle": [
+      "Presupuestos por centro de costo",
+      "Proyecciones de caja",
+      "Simulación de escenarios",
+      "Rolling forecast"
+    ],
+    "image": "/servicios/planeamiento.jpg",
+    "link": "/servicios/planeamiento",
+    "enabled": true
+  },
+  {
+    "slug": "costos",
+    "title": "Análisis de Costos y Rentabilidad",
+    "description": "Evalúa tus productos y servicios para mejorar la rentabilidad.",
+    "detalle": [
+      "Costeo de productos/servicios",
+      "Detección de pérdidas",
+      "Precios con lógica financiera"
+    ],
+    "image": "/servicios/costos.jpg",
+    "link": "/servicios/costos",
+    "enabled": true
+  },
+  {
+    "slug": "diagnostico",
+    "title": "Diagnóstico Financiero Express",
+    "description": "Obtén un panorama rápido y profesional de tu situación financiera.",
+    "detalle": [
+      "Revisión de balances, cuentas, caja",
+      "Informe de salud financiera",
+      "Plan de acción rápido"
+    ],
+    "image": "/servicios/diagnostico.jpg",
+    "link": "/servicios/diagnostico",
+    "enabled": false
+  },
+  {
+    "slug": "startups",
+    "title": "Servicios para Startups",
+    "description": "Acompañamos el crecimiento financiero desde el primer paso.",
+    "detalle": [
+      "Plan financiero para inversión",
+      "Proyecciones 12-24 meses",
+      "KPI clave",
+      "Métricas SaaS"
+    ],
+    "image": "/servicios/startups.jpg",
+    "link": "/servicios/startups",
+    "enabled": true
+  }
+]

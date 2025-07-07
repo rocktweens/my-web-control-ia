@@ -1,0 +1,9 @@
+{
+  "main": [
+    {
+      "name": "soporte",
+      "icon": "FaHeadset",
+      "link": "#contact"
+    }
+  ]
+}

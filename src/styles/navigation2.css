@@ -1,0 +1,107 @@
+.header {
+  @apply bg-light py-6 dark:bg-darkmode-body;
+}
+
+/* navbar items */
+.navbar {
+  @apply relative flex flex-wrap items-center justify-between;
+}
+
+.navbar-brand {
+  @apply text-xl font-semibold text-text dark:text-darkmode-text-dark;
+  image {
+    @apply max-h-full max-w-full;
+  }
+}
+
+.navbar-nav {
+  @apply text-center;
+}
+
+.nav-link {
+  @apply block p-3 font-bold text-xl transition
+         text-text hover:text-primary
+         dark:!text-darkmode-text dark:hover:!text-darkmode-primary
+         lg:px-2 lg:py-3 cursor-pointer;
+}
+
+.nav-list {
+  @apply space-y-2;
+}
+
+.submenu-arrow.active {
+  @apply rotate-180;
+}
+
+.nav-active {
+  @apply text-primary dark:text-darkmode-primary;
+}
+
+.nav-dropdown {
+  @apply mr-0;
+}
+
+.nav-dropdown-list {
+  @apply z-10 rounded bg-light p-4 shadow dark:bg-darkmode-body;
+}
+
+.nav-dropdown-item {
+  @apply mb-2;
+}
+
+.nav-dropdown-link {
+  @apply block py-1 font-medium text-xl
+         text-text hover:text-primary
+         dark:!text-darkmode-text dark:hover:text-darkmode-primary;
+}
+
+/* theme-switcher */
+.theme-switcher {
+  @apply inline-flex;
+
+  label {
+    @apply relative inline-block h-4 w-6 cursor-pointer rounded-2xl bg-card lg:w-10;
+  }
+
+  input {
+    @apply absolute opacity-0;
+  }
+
+  span {
+    @apply absolute -top-1 left-0 dark:lg:left-4 flex h-6 w-6 items-center justify-center rounded-full bg-primary transition-all duration-300 dark:bg-white;
+  }
+
+  input:checked + label {
+    span {
+      @apply lg:left-4;
+    }
+  }
+}
+
+/* search style */
+.search-icon {
+  @apply cursor-pointer transition text-white dark:text-primary bg-primary dark:bg-white;
+}
+
+.search-modal {
+  @apply invisible absolute left-0 right-0 top-0 z-10 h-10 bg-white opacity-0 transition dark:bg-darkmode-light md:h-full;
+
+  .form-input {
+    @apply h-full w-full border-0 text-lg;
+  }
+
+  .search-close {
+    @apply absolute right-2 top-1/2 -translate-y-1/2 p-3 text-h4;
+  }
+
+  &.open {
+    @apply visible opacity-100;
+  }
+}
+
+/* footer items */
+.footer-link {
+  @apply text-sm md:text-base font-medium transition
+         text-text hover:text-primary
+         dark:text-darkmode-text dark:hover:text-darkmode-primary;
+}

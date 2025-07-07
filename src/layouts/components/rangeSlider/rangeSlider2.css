@@ -1,0 +1,58 @@
+.range-slider-container {
+  padding: 0 0;
+  margin: 0 0;
+}
+
+.range-slider {
+  position: relative;
+  height: 8px;
+  margin: 10px 0 15px;
+}
+
+.slider-track {
+  position: absolute;
+  width: 100%;
+  height: 8px;
+  background-color: #e4eaea; /* Fondo del track neutro y suave */
+  border-radius: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.slider-range {
+  position: absolute;
+  height: 8px;
+  background-color: #006d71; /* Rango seleccionado con el color primario corporativo */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.slider-thumb {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #ffffff; /* Mantiene el blanco para contraste */
+  border: 3px solid #006d71; /* Borde en color corporativo */
+  border-radius: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 2;
+}
+
+.slider-thumb:hover {
+  box-shadow: 0 0 0 4px rgba(0, 109, 113, 0.2); /* Sombra con color primario en transparencia */
+}
+
+.slider-thumb:active {
+  box-shadow: 0 0 0 12px rgba(0, 109, 113, 0.25); /* Más visible al arrastrar */
+  cursor: grabbing;
+}
+
+/* For touch devices */
+@media (pointer: coarse) {
+  .slider-thumb {
+    width: 24px;
+    height: 24px;
+  }
+}

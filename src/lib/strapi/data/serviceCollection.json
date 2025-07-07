@@ -1,0 +1,193 @@
+[
+  {
+    "handle": "gestion",
+    "title": "Control de Gestión Personalizado",
+    "description": "Soluciones adaptadas a tu negocio para optimizar la gestión y el control.",
+    "seo": {
+      "title": "Control de Gestión Personalizado",
+      "description": "Soluciones adaptadas a tu negocio para optimizar la gestión y el control."
+    },
+    "updatedAt": "2025-06-27T10:00:00Z",
+    "path": "/colecciones/gestion",
+    "image": {
+      "url": "/servicios/gestion.jpg",
+      "altText": "Tablero de costos",
+      "width": 1000,
+      "height": 600
+    },
+    "products": {
+      "edges": [
+        {
+          "id": "gestion-101",
+          "title": "Tableros e indicadores a medida",
+          "description": "Tableros e indicadores a medida.",
+          "featuredImage": {
+            "url": "/images/gestion.jpg",
+            "altText": "Tableros e indicadores a medida",
+            "width": 1200,
+            "height": 800
+          },
+          "variants": [
+            {
+              "id": "variant-101",
+              "title": "Plan Inicial",
+              "selectedOptions": [
+                { "name": "Duración", "value": "1 mes" },
+                { "name": "Alcance", "value": "Consultoría remota" }
+              ]
+            }
+          ],
+          "images": [
+            {
+              "url": "/images/gestion.jpg",
+              "altText": "Tableros e indicadores a medida",
+              "width": 1000,
+              "height": 600
+            }
+          ],
+          "handle": "tableros"
+        },
+        {
+          "id": "gestion-102",
+          "title": "Reportes de resultados por área",
+          "description": "Reportes de resultados por área.",
+          "featuredImage": {
+            "url": "/images/costos.jpg",
+            "altText": "Reportes de resultados por área",
+            "width": 1200,
+            "height": 800
+          },
+          "variants": [
+            {
+              "id": "variant-102",
+              "title": "Plan Profesional",
+              "selectedOptions": [
+                { "name": "Duración", "value": "3 meses" },
+                { "name": "Incluye", "value": "Informe final y plan de acción" }
+              ]
+            }
+          ],
+          "images": [
+            {
+              "url": "/images/gestion.jpg",
+              "altText": "Tablero de costos",
+              "width": 1000,
+              "height": 600
+            }
+          ],
+          "handle": "plan-profesional"
+        },
+        {
+          "id": "gestion-103",
+          "title": "Reuniones estratégicas mensuales",
+          "description": "Reuniones estratégicas mensuales.",
+          "featuredImage": {
+            "url": "/images/costos.jpg",
+            "altText": "Reuniones estratégicas mensuales",
+            "width": 1200,
+            "height": 800
+          },
+          "variants": [
+            {
+              "id": "variant-102",
+              "title": "Plan Profesional",
+              "selectedOptions": [
+                { "name": "Duración", "value": "3 meses" },
+                { "name": "Incluye", "value": "Informe final y plan de acción" }
+              ]
+            }
+          ],
+          "images": [
+            {
+              "url": "/images/gestion.jpg",
+              "altText": "Tablero de costos",
+              "width": 1000,
+              "height": 600
+            }
+          ],
+          "handle": "reunion-estrategica"
+        }
+      ]
+    }
+  },
+  {
+    "handle": "planeamiento",
+    "title": "Planeamiento Financiero y Presupuestario",
+    "description": "Proyección y planificación para alcanzar tus objetivos económicos.",
+    "seo": {
+      "title": "Planeamiento Financiero y Presupuestario",
+      "description": "Proyección y planificación para alcanzar tus objetivos económicos."
+    },
+    "updatedAt": "2025-06-27T10:00:00Z",
+    "path": "/colecciones/planeamiento",
+    "image": {
+      "url": "/servicios/planeamiento.jpg",
+      "altText": "Planeamiento Financiero y Presupuestario",
+      "width": 1000,
+      "height": 600
+    },
+    "products": {
+      "edges": []
+    }
+  },
+  {
+    "handle": "costos",
+    "title": "Análisis de Costos y Rentabilidad",
+    "description": "Evalúa tus productos y servicios para mejorar la rentabilidad.",
+    "seo": {
+      "title": "Análisis de Costos y Rentabilidad",
+      "description": "Evalúa tus productos y servicios para mejorar la rentabilidad."
+    },
+    "updatedAt": "2025-06-27T10:00:00Z",
+    "path": "/colecciones/costos",
+     "image": {
+      "url": "/servicios/costos.jpg",
+      "altText": "Análisis de Costos y Rentabilidad",
+      "width": 1000,
+      "height": 600
+    },
+    "products": {
+      "edges": []
+    }
+  },
+  {
+    "handle": "diagnostico",
+    "title": "Diagnóstico Financiero Express",
+    "description": "Obtén un panorama rápido y profesional de tu situación financiera.",
+    "seo": {
+      "title": "Diagnóstico Financiero Express",
+      "description": "Obtén un panorama rápido y profesional de tu situación financiera."
+    },
+    "updatedAt": "2025-06-27T10:00:00Z",
+    "path": "/colecciones/diagnostico",
+    "image": {
+      "url": "/servicios/diagnostico.jpg",
+      "altText": "Diagnóstico Financiero Express",
+      "width": 1000,
+      "height": 600
+    },
+    "products": {
+      "edges": []
+    }
+  },
+  {
+    "handle": "startups",
+    "title": "Servicios para Startups",
+    "description": "Acompañamos el crecimiento financiero desde el primer paso.",
+    "seo": {
+      "title": "Servicios para Startups",
+      "description": "Acompañamos el crecimiento financiero desde el primer paso."
+    },
+    "updatedAt": "2025-06-27T10:00:00Z",
+    "path": "/colecciones/startups",
+    "image": {
+      "url": "/servicios/startups.jpg",
+      "altText": "Servicios para Startups",
+      "width": 1000,
+      "height": 600
+    },
+    "products": {
+      "edges": []
+    }
+  }
+]

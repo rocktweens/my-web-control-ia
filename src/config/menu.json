@@ -1,0 +1,83 @@
+{
+  "main": [
+    {
+      "name": "Home",
+      "url": "/#headnav",
+      "enabled": true
+    },
+    {
+      "name": "Servicios",
+      "url": "/#seccion-servicios",
+      "enabled": true
+    },
+    {
+      "name": "Sobre Mí",
+      "url": "/#sobre-mi",
+      "enabled": true
+    },
+     {
+      "name": "Misión",
+      "url": "/#seccion-mision",
+      "enabled": true
+    },
+     {
+      "name": "Visión",
+      "url": "/#seccion-vision",
+      "enabled": true
+    },
+     {
+      "name": "Valores",
+      "url": "/#seccion-valores",
+      "enabled": true
+    },
+    {
+      "name": "Pages",
+      "url": "",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "About",
+          "url": "/about"
+        },
+        {
+          "name": "Contact",
+          "url": "/contact"
+        },
+        {
+          "name": "404 Page",
+          "url": "/404"
+        }
+      ],
+      "enabled": false
+    },
+    {
+      "name": "Contact",
+      "url": "/#contact",
+      "enabled": true
+    }
+  ],
+  "footer": [
+    {
+      "name": "About",
+      "url": "/about"
+    },
+    {
+      "name": "Products",
+      "url": "/products"
+    },
+    {
+      "name": "Contact",
+      "url": "/contact"
+    }
+  ],
+  "footerCopyright": [
+    {
+      "name": "Privacy & Policy",
+      "url": "/privacy-policy"
+    },
+    {
+      "name": "Terms of Service",
+      "url": "/terms-services"
+    }
+  ]
+}

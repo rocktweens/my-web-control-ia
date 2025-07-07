@@ -1,0 +1,76 @@
+[
+  {
+    "id": "service-001",
+    "title": "Control de Gestión Personalizado",
+    "description": "Soluciones adaptadas a tu negocio para optimizar la gestión y el control.",
+    "featuredImage": {
+      "url": "/slider/gestion.jpg",
+      "altText": "Dashboard de control de gestión",
+      "width": 1200,
+      "height": 800
+    },
+    "variants": [
+      {
+        "id": "variant-001",
+        "title": "Plan Básico",
+        "selectedOptions": [
+          { "name": "Duración", "value": "1 mes" },
+          { "name": "Consultas", "value": "2 reuniones virtuales" }
+        ]
+      },
+      {
+        "id": "variant-002",
+        "title": "Plan Avanzado",
+        "selectedOptions": [
+          { "name": "Duración", "value": "3 meses" },
+          { "name": "Consultas", "value": "Reuniones semanales" }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "url": "/slider/gestion1.jpg",
+        "altText": "Tablero financiero",
+        "width": 1000,
+        "height": 600
+      },
+      {
+        "url": "/slider/gestion2.jpg",
+        "altText": "Reporte mensual",
+        "width": 1000,
+        "height": 600
+      }
+    ],
+    "handle": "control-de-gestion"
+  },
+  {
+    "id": "service-002",
+    "title": "Planeamiento Financiero",
+    "description": "Proyecciones claras y realistas para el crecimiento de tu empresa.",
+    "featuredImage": {
+      "url": "/slider/planeamiento.jpg",
+      "altText": "Plan financiero a largo plazo",
+      "width": 1200,
+      "height": 800
+    },
+    "variants": [
+      {
+        "id": "variant-003",
+        "title": "Plan Estándar",
+        "selectedOptions": [
+          { "name": "Duración", "value": "2 meses" },
+          { "name": "Proyecciones", "value": "6 meses" }
+        ]
+      }
+    ],
+    "images": [
+      {
+        "url": "/slider/planeamiento1.jpg",
+        "altText": "Gráfico de proyecciones",
+        "width": 1000,
+        "height": 600
+      }
+    ],
+    "handle": "planeamiento-financiero"
+  }
+]
