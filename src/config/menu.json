@@ -51,7 +51,7 @@
       "enabled": false
     },
     {
-      "name": "Contact",
+      "name": "Contacto",
       "url": "/#contact",
       "enabled": true
     }
@@ -72,11 +72,11 @@
   ],
   "footerCopyright": [
     {
-      "name": "Privacy & Policy",
+      "name": "Política de privacidad",
       "url": "/privacy-policy"
     },
     {
-      "name": "Terms of Service",
+      "name": "Términos del Servicio",
       "url": "/terms-services"
     }
   ]
