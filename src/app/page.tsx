@@ -116,9 +116,9 @@ const Home = () => {
       {about_section_enable && (
         <section id="sobre-mi" className="section">
           <div className="container-third py-8">
-            <div className="text-center mb-6 md:mb-14">
+            {/* <div className="text-center mb-6 md:mb-14">
               <h2 className="mb-2">Sobre Mí</h2>
-            </div>
+            </div> */}
             <MePerson abouts={about_me!} />
           </div>
         </section>

@@ -134,6 +134,7 @@ export type About = {
   designation: string;
   avatar: string;
   content: string;
+  colorBg?: string;
 };
 
 export type Banner = {

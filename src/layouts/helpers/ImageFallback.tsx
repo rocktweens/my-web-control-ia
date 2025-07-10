@@ -11,6 +11,11 @@ const ImageFallback = (props: any) => {
     setImgSrc(src);
   }, [src]);
 
+  // Validar si imgSrc está vacío o nulo
+  if (!imgSrc || imgSrc.trim() === "") {
+    return null;
+  }
+
   return (
     <Image
       {...rest}

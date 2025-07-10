@@ -3,81 +3,50 @@
 import ImageFallback from "@/helpers/ImageFallback";
 import { markdownify } from "@/lib/utils/textConverter";
 import { AboutUsItem } from "@/types";
-import { FaFileExcel, FaUniversity } from "react-icons/fa";
-import { FiActivity  } from "react-icons/fi"; // Debes instalar este ícono si no lo tienes: react-icons
 
 const AboutMePerson = ({ abouts }: { abouts: Array<AboutUsItem> }) => {
   return (
-    <section>
-      <div className="container">
-        <div className="lg:grid lg:grid-cols-4 gap-8">
-          {/* Columna principal: Información del currículum */}
-          <div className="lg:col-span-3">
-            {abouts?.map((section: AboutUsItem, index: number) => (
-              <div
-                className="lg:flex gap-8 mt-14 lg:mt-3"
-                key={section?.title}
-              >
-                {index % 2 === 0 ? (
-                  <>
+    <section className="py-16">
+      <div className="container mx-auto px-6 lg:px-0">
+        {abouts?.map((section, index) => (
+          <div
+            key={section.title}
+            className="relative mb-12 lg:mb-16 rounded-2xl overflow-hidden"
+          >
+            {/* Imagen de fondo */}
+            <div className="absolute inset-0 z-0">
+              {/* <ImageFallback
+                className="w-full h-full object-cover opacity-30"
+                src={section.image}
+                fallback="/images/curriculo-origin.png"
+                fill
+                alt={section.title}
+              /> */}
+              <div className="absolute inset-0 bg-white/50 dark:bg-black/50 backdrop-blur-sm"></div>
+            </div>
+
+            {/* Contenido */}
+            <div className="relative z-10 flex items-center justify-center min-h-[400px] px-6 lg:px-12">
+              <div className="prose prose-lg text-center text-gray-800 dark:prose-invert max-w-4xl">
+                <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">
+                  {section.title}
+                </h2>
+                <div className="mt-1 flex flex-col items-center">
+                  <div className="text-text-dark dark:text-white mb-4">
                     <ImageFallback
-                      className="rounded-md mx-auto"
-                      src={section?.image}
-                      width={536}
-                      height={449}
-                      alt={section?.title}
-                    />
-                    <div className="mt-10 lg:mt-0">
-                      <h2>{section?.title}</h2>
-                      <p
-                        className="mt-4 text-text-light dark:text-darkmode-text-light leading-7"
-                        dangerouslySetInnerHTML={markdownify(section?.content)}
-                      />
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div>
-                      <h2>{section.title}</h2>
-                      <p
-                        className="mt-4 text-text-light dark:text-darkmode-text-light leading-7"
-                        dangerouslySetInnerHTML={markdownify(section.content)}
-                      />
-                    </div>
-                    <ImageFallback
-                      className="rounded-md mx-auto mt-10 lg:mt-0"
+                      height={50}
+                      width={50}
+                      className="rounded-full"
                       src={section.image}
-                      width={536}
-                      height={449}
                       alt={section.title}
                     />
-                  </>
-                )}
+                  </div>
+                </div>
+                <div dangerouslySetInnerHTML={markdownify(section.content)} />
               </div>
-            ))}
-          </div>
-
-          {/* Columna lateral: Herramientas */}
-          <aside className="hidden lg:flex flex-col items-center gap-6 mt-14 lg:mt-3">
-            <div className="text-center">
-              <h3 className="text-lg font-semibold mb-4">Herramientas</h3>
-              <ul className="space-y-4">
-                <li className="flex flex-col items-center text-sm">
-                  <FiActivity  className="text-3xl" />
-                  <span className="mt-1">PowerBuilder</span>
-                </li>
-                <li className="flex flex-col items-center text-sm">
-                  <FaFileExcel className="text-3xl" />
-                  <span className="mt-1">Excel</span>
-                </li>
-                <li className="flex flex-col items-center text-sm">
-                  <FaUniversity className="text-3xl" />
-                  <span className="mt-1 text-center">Lic. en Finanzas</span>
-                </li>
-              </ul>
             </div>
-          </aside>
-        </div>
+          </div>
+        ))}
       </div>
     </section>
   );
