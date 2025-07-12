@@ -27,6 +27,9 @@
 
 .formulario {
   @apply bg-white;
+  input {
+    @apply text-text-light;
+  }
 }
 
 .whatsapp {

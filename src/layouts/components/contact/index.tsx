@@ -124,7 +124,7 @@ const Contacto = () => {
                   id="cname"
                   name="cname"
                   className="form-input"
-                  placeholder="John"
+                  placeholder="Juan"
                   type="text"
                   required
                 />
@@ -152,7 +152,7 @@ const Contacto = () => {
             <div className="mb-6 md:grid grid-cols-2 gap-x-8 max-md:space-y-6">
               <div>
                 <label htmlFor="cemail" className="form-label">
-                  Email Address <span className="text-red-500">*</span>
+                  Email <span className="text-red-500">*</span>
                 </label>
                 <input
                   id="cemail"
@@ -204,13 +204,13 @@ const Contacto = () => {
             </div>
             <div className="mb-6">
               <label htmlFor="message" className="form-label">
-                Message <span className="text-red-500">*</span>
+                Mensaje <span className="text-red-500">*</span>
               </label>
               <textarea
                 id="message"
                 name="message"
                 className="form-input"
-                placeholder="Type your message..."
+                placeholder="Ingresa tu mensaje..."
                 rows={8}
                 required
               ></textarea>

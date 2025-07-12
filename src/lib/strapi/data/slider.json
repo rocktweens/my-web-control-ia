@@ -17,14 +17,6 @@
           { "name": "Duración", "value": "1 mes" },
           { "name": "Consultas", "value": "2 reuniones virtuales" }
         ]
-      },
-      {
-        "id": "variant-002",
-        "title": "Plan Avanzado",
-        "selectedOptions": [
-          { "name": "Duración", "value": "3 meses" },
-          { "name": "Consultas", "value": "Reuniones semanales" }
-        ]
       }
     ],
     "images": [
@@ -35,7 +27,7 @@
         "height": 600
       },
       {
-        "url": "/slider/gestion2.jpg",
+  "url": "/slider/gestion2.jpg",
         "altText": "Reporte mensual",
         "width": 1000,
         "height": 600
@@ -44,33 +36,69 @@
     "handle": "control-de-gestion"
   },
   {
-    "id": "service-002",
+  "id": "service-002",
     "title": "Planeamiento Financiero",
     "description": "Proyecciones claras y realistas para el crecimiento de tu empresa.",
     "featuredImage": {
-      "url": "/slider/planeamiento.jpg",
+    "url": "/slider/planeamiento.jpg",
       "altText": "Plan financiero a largo plazo",
       "width": 1200,
       "height": 800
     },
     "variants": [
-      {
-        "id": "variant-003",
-        "title": "Plan Estándar",
-        "selectedOptions": [
-          { "name": "Duración", "value": "2 meses" },
-          { "name": "Proyecciones", "value": "6 meses" }
-        ]
-      }
     ],
     "images": [
       {
-        "url": "/slider/planeamiento1.jpg",
+    "url": "/slider/planeamiento1.jpg",
         "altText": "Gráfico de proyecciones",
         "width": 1000,
         "height": 600
       }
     ],
     "handle": "planeamiento-financiero"
+  },
+  {
+  "id": "service-003",
+    "title": "Análisis de Costos y Rentabilidad",
+    "description": "Evalúa tus productos y servicios para mejorar la rentabilidad.",
+    "featuredImage": {
+    "url": "/slider/costos.jpg",
+      "altText": "Análisis de Costos y Rentabilidad",
+      "width": 1200,
+      "height": 800
+    },
+    "variants": [
+    ],
+    "images": [
+      {
+    "url": "/slider/costos.jpg",
+        "altText": "Análisis de Costos y Rentabilidad",
+        "width": 1000,
+        "height": 600
+      }
+    ],
+    "handle": "costos"
+  },
+  {
+  "id": "service-004",
+    "title": "Diagnóstico Financiero Express",
+    "description": "Obtén un panorama rápido y profesional de tu situación financiera.",
+    "featuredImage": {
+    "url": "/slider/diagnostico.jpg",
+      "altText": "Diagnóstico Financiero Express",
+      "width": 1200,
+      "height": 800
+    },
+    "variants": [
+    ],
+    "images": [
+      {
+    "url": "/slider/diagnostico.jpg",
+        "altText": "Diagnóstico Financiero Express",
+        "width": 1000,
+        "height": 600
+      }
+    ],
+    "handle": "diagnostico"
   }
 ]
