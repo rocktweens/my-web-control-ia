@@ -134,7 +134,7 @@ export type Service = {
   title: string;
   description: string;
   featuredImage: Image;
-  variants?: ServiceVariant[];
+  variants: ServiceVariant[];
   images: Image[];
   handle: string;
   details?: string[];

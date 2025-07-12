@@ -23,9 +23,9 @@ const FeaturedServices = ({ services }: { services: Service[] }) => {
             details,
           } = service;
 
-          const defaultVariantId =
-            variants.length > 0 ? variants[0].id : undefined;
-            //return <div>{JSON.stringify(service)}</div>;
+          // const defaultVariantId =
+          //   variants?.length > 0 ? variants[0].id : undefined;
+             //return <div>{JSON.stringify(service)}</div>;
           return (
             <div
               key={`serv${id}`}
@@ -41,9 +41,7 @@ const FeaturedServices = ({ services }: { services: Service[] }) => {
                 />
 
                 <ReadMore
-                  variants={service.variants}
                   handle={handle}
-                  defaultVariantId={defaultVariantId}
                   stylesClass={
                     "btn btn-primary max-md:btn-sm z-10 absolute bottom-12 md:bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full md:group-hover:-translate-y-6 duration-300 ease-in-out whitespace-nowrap drop-shadow-md"
                   }

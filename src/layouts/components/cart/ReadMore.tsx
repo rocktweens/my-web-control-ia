@@ -39,36 +39,33 @@ function SubmitButton({
 }
 
 export function ReadMore({
-  variants,
   stylesClass,
-  handle,
-  defaultVariantId,
+  handle
 }: {
-  variants: ServiceVariant[];
   stylesClass: string;
   handle: string | null;
-  defaultVariantId: string | undefined;
 }) {
   const [message, formAction] = useActionState(addItem, null);
   const searchParams = useSearchParams();
 
   // Find the variant based on selected options
   const selectedOptions = Array.from(searchParams.entries());
-  const variant = variants.find((variant: ServiceVariant) =>
+ /*  const variant = variants.find((variant: ServiceVariant) =>
     selectedOptions.every(([key, value]) =>
       variant.selectedOptions.some(
         (option) => option.name.toLowerCase() === key && option.value === value,
       ),
     ),
-  );
+  ); */
 
   // Use the default variant ID if no variant is found
-  const selectedVariantId = variant?.id || defaultVariantId;
+  // const selectedVariantId = variant?.id || defaultVariantId;
 
-  const actionWithVariant = formAction.bind(null, selectedVariantId);
+  // const actionWithVariant = formAction.bind(null, selectedVariantId);
 
   return (
-    <form action={actionWithVariant}>
+    <form>
+      {/* action={actionWithVariant}> */}
       <SubmitButton
         stylesClass={stylesClass}
         handle={handle}
