@@ -12,6 +12,7 @@
         "eighthy": "#d9822b",
         "ninethy": "#009688",
         "tenty":"#4e878c",
+        "eleven":"#8e8e8e",
         "body": "#f5f7f7",
         "border": "#e4eaea",
         "light": "#f5f7f7",
@@ -20,6 +21,7 @@
       "text_color": {
         "text": "#1e1e1e",
         "text-dark": "#1e1e1e",
+        "text-darkprimary": "#006d71",
         "text-light": "#1e1e1e",
         "text-superlight": "#b0b0b0"
       }

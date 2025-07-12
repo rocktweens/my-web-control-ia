@@ -34,7 +34,7 @@ abouts:
     designation: "Adrian Chiappano"
     colorBg: "bg-sixty"
     avatar: "/images/valores2.png"
-    content: "Claridad: hacemos lo complejo simple.
+    content: "**Claridad:** hacemos lo complejo simple.
               Compromiso: nos involucramos con cada cliente.
               Resultados: medimos y mejoramos.
               Confianza: relaciones a largo plazo."

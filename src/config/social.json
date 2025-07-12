@@ -1,19 +1,17 @@
 {
   "main": [
     {
-      "name": "facebook",
-      "icon": "FaFacebookF",
-      "link": "https://www.facebook.com/"
+    "name": "whastsapp",
+      "icon": "FaWhatsapp",
+      "link": "https://www.facebook.com/",
+      "target": "_self"
     },
     {
-      "name": "instagram",
-      "icon": "FaInstagram",
-      "link": "https://www.instagram.com/"
-    },
-    {
-      "name": "linkedin",
-      "icon": "FaLinkedinIn",
-      "link": "https://www.linkedin.com/"
+    "name": "Mapa",
+      "icon": "FaMapLocation",
+      "link": "#",
+      "target": "_self"
     }
+
   ]
 }

@@ -3,7 +3,6 @@
 import Logo from "@/components/LogoFooter";
 import config from "@/config/config.json";
 import menu from "@/config/menu.json";
-import social from "@/config/social.json";
 import contacts from "@/config/contacts.json";
 import DynamicIcon from "@/helpers/DynamicIcon";
 import { markdownify } from "@/lib/utils/textConverter";
@@ -14,6 +13,7 @@ export interface ISocial {
   name: string;
   icon: string;
   link: string;
+  target: string;
 }
 
 const Footer = () => {
@@ -43,7 +43,7 @@ const Footer = () => {
                 <a
                   aria-label={contact.name}
                   href={contact.link}
-                  target="_self"
+                  target={contact.target??"_blank"}
                   rel="noopener noreferrer nofollow"
                 >
                   <span className="sr-only">{contact.name}</span>

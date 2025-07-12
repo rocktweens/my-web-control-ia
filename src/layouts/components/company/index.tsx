@@ -76,7 +76,7 @@ const Company = ({
 
                     <h3
                       dangerouslySetInnerHTML={markdownify(item.name)}
-                      className="h5 font-primary font-bold"
+                      className="h4 font-primary font-bold"
                     />
                   </div>
                   <div
@@ -101,7 +101,7 @@ const Company = ({
                   </div>
                   <div className={`mt-5 flex flex-col items-center py-10  w-full rounded-2xl ${item?.colorBg ?? "bg-light"}`}>
                     <blockquote
-                      className={`mt-5 text-center mx-auto md:col-10 lg:col-8 z-10 `}
+                      className={`mt-5 text-center text-xl mx-auto md:col-10 lg:col-8 z-10 `}
                       dangerouslySetInnerHTML={markdownify(item.content)}
                     />
                   </div>

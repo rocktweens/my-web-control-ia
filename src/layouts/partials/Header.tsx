@@ -22,6 +22,7 @@ export interface ISocial {
   name: string;
   icon: string;
   link: string;
+  target?: string;
 }
 
 interface INavigationLink {
@@ -168,7 +169,7 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
                 <a
                   aria-label={social.name}
                   href={social.link}
-                  target="_blank"
+                  target={social.target??"_blank"}
                   rel="noopener noreferrer nofollow"
                 >
                   <span className="sr-only">{social.name}</span>
