@@ -129,6 +129,7 @@ const Contacto = () => {
                   className="form-input"
                   placeholder="Juan"
                   type="text"
+                  value={formData.cname}
                   onChange={handleChange}
                   required
                 />
@@ -164,6 +165,7 @@ const Contacto = () => {
                   className="form-input"
                   placeholder="juan.perez@email.com"
                   type="email"
+                  value={formData.cemail}
                   onChange={handleChange}
                   required
                 />
@@ -203,6 +205,7 @@ const Contacto = () => {
                   placeholder={getCurrentDateTimePlaceholder()}
                   type="datetime-local"
                   required
+                  value={formData.cagend}
                   onChange={handleChange}
                 />
               </div>
@@ -218,6 +221,7 @@ const Contacto = () => {
                 placeholder="Ingresa tu mensaje..."
                 rows={8}
                 required
+                value={formData.cmessage}
                 onChange={handleChange}
               ></textarea>
             </div>
