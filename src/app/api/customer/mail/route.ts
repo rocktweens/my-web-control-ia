@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { htmlText } = body;
+    const { htmlText, from } = body;
 
     if (!htmlText) {
       return NextResponse.json(
@@ -19,14 +19,15 @@ export async function POST(req: NextRequest) {
       port: 587,
       secure: false,
       auth: {
-        user: process.env.SMTP_USER || "sally@controlia.com.ar",
-        pass: process.env.SMTP_PASS || "S*lly246", // Usa variables de entorno en producción
+        user: process.env.SMTP_USER || "noreply@controlia.com.ar",
+        pass: process.env.SMTP_PASS || "Consultas2025", // Usa variables de entorno en producción
       },
     });
 
     const result = await transporter.sendMail({
-      from: process.env.SMTP_USER || "sally@controlia.com.ar",
+      from: process.env.SMTP_USER || "noreply@controlia.com.ar",
       to: "consultas@controlia.com.ar",
+      replyTo: from,
       subject: "Nuevo mensaje desde el formulario web",
       html: htmlText,
     });

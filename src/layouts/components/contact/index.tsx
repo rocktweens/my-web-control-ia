@@ -13,7 +13,7 @@ interface FormData {
   cemail: string;
   cservice: string;
   cagend: string;
-  cmenssaje: string;
+  cmessage: string;
 }
 const { collections } = config.strapi;
 
@@ -29,7 +29,7 @@ const Contacto = () => {
     cemail: "",
     cservice: "",
     cagend: "",
-    cmenssaje: "",
+    cmessage: "",
   });
 
   const { contact_form_action } = config.params;
@@ -68,13 +68,13 @@ const Contacto = () => {
       <p><strong>Email:</strong> ${formData.cemail}</p>
       <p><strong>Servicio:</strong> ${formData.cservice}</p>
       <p><strong>Agenda:</strong> ${formData.cagend}</p>
-      <p><strong>Mensaje:</strong><br/>${formData.cmenssaje}</p>
+      <p><strong>Mensaje:</strong> ${formData.cmessage}</p>
     `;
 
     const response = await fetch("/api/customer/mail", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ htmlText }),
+      body: JSON.stringify({ htmlText , from: formData.cemail}),
     });
 
     const respData = await response.json();
@@ -92,7 +92,7 @@ const Contacto = () => {
         cemail: "",
         cservice: "",
         cagend: "",
-        cmenssaje: "",
+        cmessage: "",
       });
     } else {
       console.error(JSON.stringify(respData));
@@ -129,6 +129,7 @@ const Contacto = () => {
                   className="form-input"
                   placeholder="Juan"
                   type="text"
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -163,6 +164,7 @@ const Contacto = () => {
                   className="form-input"
                   placeholder="juan.perez@email.com"
                   type="email"
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -206,16 +208,17 @@ const Contacto = () => {
               </div>
             </div>
             <div className="mb-6">
-              <label htmlFor="message" className="form-label">
+              <label htmlFor="cmessage" className="form-label">
                 Mensaje <span className="text-red-500">*</span>
               </label>
               <textarea
-                id="message"
-                name="message"
+                id="cmessage"
+                name="cmessage"
                 className="form-input"
                 placeholder="Ingresa tu mensaje..."
                 rows={8}
                 required
+                onChange={handleChange}
               ></textarea>
             </div>
 
