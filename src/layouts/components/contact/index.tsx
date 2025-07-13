@@ -78,8 +78,9 @@ const Contacto = () => {
     });
 
     const respData = await response.json();
+
     setLoading(false);
-    if (respData?.ok) {
+    if (respData?.success) {
       setModalContent({
         title: "Mensaje enviado",
         message: "✅ Tu mensaje fue enviado con éxito.",
@@ -94,6 +95,8 @@ const Contacto = () => {
         cmenssaje: "",
       });
     } else {
+      console.error(JSON.stringify(respData));
+
       setModalContent({
         title: "Error",
         message:
