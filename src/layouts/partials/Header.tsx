@@ -12,6 +12,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { Suspense, useEffect, useState } from "react";
 import DynamicIcon from "@/helpers/DynamicIcon";
+import { useChat } from "@/context/ChatContext";
 
 interface IChildNavigationLink {
   name: string;
@@ -121,6 +122,8 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
     setShowChildMenu(!showChildMenu);
   };
 
+  const { openChat } = useChat();
+
   return (
     <header
       id="headnav"
@@ -162,22 +165,39 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
 
           {/* Right: ThemeSwitcher, Account, Mobile Menu Toggle */}
           <div className="flex items-center space-x-4">
-             {/* social share */}
-          <ul className="social-icons social-icons-footer">
-            {social?.main.map((social: ISocial) => (
-              <li key={social.name}>
-                <a
-                  aria-label={social.name}
-                  href={social.link}
-                  target={social.target??"_blank"}
-                  rel="noopener noreferrer nofollow"
-                >
-                  <span className="sr-only">{social.name}</span>
-                  <DynamicIcon className="inline-block" icon={social.icon} />
-                </a>
-              </li>
-            ))}
-          </ul>
+            {/* social share */}
+            <ul className="social-icons social-icons-footer">
+              {social?.main.map((socialItem: ISocial) => (
+                <li key={socialItem.name}>
+                  {socialItem.link === "openChat" ? (
+                    <button
+                      type="button"
+                      aria-label={socialItem.name}
+                      onClick={openChat}
+                    >
+                      <span className="sr-only">{socialItem.name}</span>
+                      <DynamicIcon
+                        className="inline-block"
+                        icon={socialItem.icon}
+                      />
+                    </button>
+                  ) : (
+                    <a
+                      aria-label={socialItem.name}
+                      href={socialItem.link}
+                      target={socialItem.target ?? "_blank"}
+                      rel="noopener noreferrer nofollow"
+                    >
+                      <span className="sr-only">{socialItem.name}</span>
+                      <DynamicIcon
+                        className="inline-block"
+                        icon={socialItem.icon}
+                      />
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
             {/* <ThemeSwitcher className="mr-4 md:mr-6" />
             <Suspense fallback={children[0]}>{children[1]}</Suspense>
             {settings.account && (
@@ -185,7 +205,8 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
                 <NavSocial />
               </div>
             )}
- */}
+            */}
+
             {/* Mobile Hamburger */}
             <button
               className="md:hidden p-2 border dark:border-border/40 rounded-md"

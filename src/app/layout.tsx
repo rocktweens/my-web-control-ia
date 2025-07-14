@@ -6,6 +6,9 @@ import TwSizeIndicator from "@/helpers/TwSizeIndicator";
 import Footer from "@/partials/Footer";
 import Header from "@/partials/Header";
 import Providers from "@/partials/Providers";
+import { ChatProvider } from "@/context/ChatContext";
+import ChatFloatingWindow from "@/components/ChatFloatingWindow-old"; // nuevo componente de chat
+
 import "@/styles/main.css";
 
 export default function RootLayout({
@@ -49,22 +52,27 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href={`https://fonts.googleapis.com/css2?family=${pf}${sf ? "&family=" + sf : ""
-            }&display=swap`}
+          href={`https://fonts.googleapis.com/css2?family=${pf}${
+            sf ? "&family=" + sf : ""
+          }&display=swap`}
           rel="stylesheet"
         />
       </head>
 
       <body suppressHydrationWarning={true}>
         <TwSizeIndicator />
-        <Providers>
-          <Header>
-            <OpenCart />
-            <Cart />
-          </Header>
-          <main>{children}</main>
-          <Footer />
-        </Providers>
+        <ChatProvider>
+          <Providers>
+            <Header>
+              <OpenCart />
+              <Cart />
+            </Header>
+            <main>{children}</main>
+            <Footer />
+            {/* Componente de chat, flotante y condicional */}
+            <ChatFloatingWindow />
+          </Providers>
+        </ChatProvider>
       </body>
     </html>
   );

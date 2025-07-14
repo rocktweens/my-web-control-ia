@@ -140,7 +140,7 @@ const Home = () => {
 
       {/* <CallToAction data={callToAction} /> */}
       {/* Chatea con ia  */}
-      <WhatsappFloatingButton />
+      {/* <WhatsappFloatingButton /> */}
     </>
   );
 };

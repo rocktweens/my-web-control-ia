@@ -3,7 +3,7 @@
     {
     "name": "whastsapp",
       "icon": "FaWhatsapp",
-      "link": "https://www.facebook.com/",
+      "link": "openChat",
       "target": "_self"
     },
     {
