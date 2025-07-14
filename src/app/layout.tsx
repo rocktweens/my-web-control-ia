@@ -7,7 +7,7 @@ import Footer from "@/partials/Footer";
 import Header from "@/partials/Header";
 import Providers from "@/partials/Providers";
 import { ChatProvider } from "@/context/ChatContext";
-import ChatFloatingWindow from "@/components/ChatFloatingWindow-old"; // nuevo componente de chat
+import ChatFloatingWindow from "@/components/ChatFloatingWindow"; // nuevo componente de chat
 
 import "@/styles/main.css";
 

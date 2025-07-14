@@ -15,7 +15,7 @@ export async function POST(req: Request) {
   const prompt = "Sos un asistente virtual corporativo amable, claro y breve.";
   try {
     const chat = await openai.chat.completions.create({
-      model: "gpt-4", // podés usar "gpt-4" si tenés acceso
+      model: "gpt-3.5-turbo", // podés usar "gpt-4" si tenés acceso
       messages: [
         {
           role: "system",

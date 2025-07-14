@@ -1,21 +1,52 @@
 "use client";
 
 import { useChat } from "@/context/ChatContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaRobot, FaTimes } from "react-icons/fa";
 import WhatsappFloatingButton from "@/components/WhatsappFloatingButton";
 import { AnimatePresence, motion } from "framer-motion";
+import ImageFallback from "@/helpers/ImageFallback";
 
-const corporateColor = "#006d71";
 
 const ChatFloatingWindow = () => {
   const { isChatOpen, closeChat } = useChat();
   const [messages, setMessages] = useState<string[]>([]);
   const [input, setInput] = useState("");
 
+  // 👇 Mensaje de bienvenida al abrir el chat
+  useEffect(() => {
+    const fetchWelcomeMessage = async () => {
+      try {
+        const res = await fetch("/api/customer/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            message:
+              "Saluda al usuario de forma cordial como asistente virtual.",
+          }),
+        });
+
+        const data = await res.json();
+        if (data.reply) {
+          setMessages([`🤖: ${data.reply}`]);
+        } else {
+          setMessages([`🤖: ¡Hola! ¿En qué podemos ayudarte?`]);
+        }
+      } catch (error) {
+        console.error("Error al obtener saludo:", error);
+        setMessages([`🤖: Bienvenido, ¿cómo podemos ayudarte hoy?`]);
+      }
+    };
+
+    if (isChatOpen && messages.length === 0) {
+      fetchWelcomeMessage();
+    }
+  }, [isChatOpen]);
+
   const handleSend = async () => {
     if (!input.trim()) return;
-
     const userMessage = input;
     setMessages((prev) => [...prev, `🧑: ${userMessage}`]);
     setInput("");
@@ -23,9 +54,7 @@ const ChatFloatingWindow = () => {
     try {
       const res = await fetch("/api/customer/chat", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMessage }),
       });
 
@@ -56,16 +85,20 @@ const ChatFloatingWindow = () => {
           >
             {/* Header */}
             <div
-              className="text-white px-4 py-3 flex justify-between items-center rounded-t-lg"
-              style={{ backgroundColor: corporateColor }}
+              className="text-white px-4 py-3 flex justify-between items-center rounded-t-lg bg-primary"
             >
               <div className="flex items-center gap-2 font-semibold">
-                <FaRobot className="text-lg" />
-                <span>Asistente Virtual</span>
+                <ImageFallback
+                  src={"/images/asistente-30x30.png"}
+                  width={30}
+                  height={30}
+                  alt={""}
+                />
+                <span>Asistente ControlIA</span>
               </div>
               <button
                 onClick={closeChat}
-                className="text-white hover:text-gray-200 transition"
+                className="text-white hover:text-tertiary transition"
                 aria-label="Cerrar chat"
               >
                 <FaTimes />
@@ -82,7 +115,7 @@ const ChatFloatingWindow = () => {
             </div>
 
             {/* Input */}
-            <div className="p-3 border-t bg-white flex items-center gap-2">
+            <div className="p-3 border-t-1 border-gray-300  bg-white flex items-center gap-2">
               <input
                 className="flex-1 border border-gray-300 px-3 py-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                 value={input}

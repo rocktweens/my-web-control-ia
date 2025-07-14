@@ -7,7 +7,7 @@ import WhatsappFloatingButton from "@/components/WhatsappFloatingButton";
 
 const corporateColor = "#006d71";
 
-const ChatFloatingWindow = () => {
+const ChatFloatingWindowOld = () => {
   const { isChatOpen, closeChat } = useChat();
   const [messages, setMessages] = useState<string[]>([]);
   const [input, setInput] = useState("");
@@ -75,4 +75,4 @@ const ChatFloatingWindow = () => {
   );
 };
 
-export default ChatFloatingWindow;
+export default ChatFloatingWindowOld;
