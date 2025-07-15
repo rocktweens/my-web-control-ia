@@ -14,13 +14,10 @@
         "tenty":"#4e878c",
         "eleven":"#8e8e8e",
         "twelve":"#00565a",
-        "thirteen":"#004f51",
-        "fourteen":"#c9d3d3",
         "body": "#f5f7f7",
         "border": "#e4eaea",
         "light": "#f5f7f7",
-        "dark": "#004f51",
-        "test": "#c9d3d3"
+        "dark": "#004f51"
       },
       "text_color": {
         "text": "#1e1e1e",
@@ -35,32 +32,15 @@
         "primary": "#006d71",
         "secondary": "#004f51",
         "tertiary": "#8DB9CA",
-        "fourty": "#f5f7f7",
-        "fifty": "#2c3e50",
-        "sixty": "#d9d9d9",
-        "seventy": "#1c1c1c",
-        "eighthy": "#d9822b",
-        "ninethy": "#009688",
-        "tenty":"#4e878c",
-        "eleven":"#8e8e8e",
-        "twelve":"#00565a",
-        "thirteen":"#004f51",
-        "fourteen":"#c9d3d3",
-        "body": "#f5f7f7",
-        "border": "#e4eaea",
-        "light": "#f5f7f7",
-        "dark": "#004f51",
-        "test": "#007577"
+        "body": "#1c1c1c",
+        "border": "#1c1c1c",
+        "light": "#1c1c1c",
+        "dark": "#004f51"
       },
-       "text_color": {
-        "text": "#1e1e1e",
-        "text-dark": "#1e1e1e",
-        "text-darkprimary": "#006d71",
-        "text-light": "#1e1e1e",
-        "text-superlight": "#b0b0b0"
-      },
-      "body_color":{
-         "body": "#1e1e1e"
+      "text_color": {
+        "text": "#e0e0e0",
+        "text-dark": "#cfcfcf",
+        "text-light": "#e0e0e0"
       }
     }
   },

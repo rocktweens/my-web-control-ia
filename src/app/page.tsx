@@ -103,7 +103,7 @@ const Home = () => {
       <section id="seccion-servicios">
         <div className="container">
           <div className="text-center mb-6 md:mb-14 py-8">
-            <h2 className="mb-2">Servicios de Alto Impacto</h2>
+            <h2 className="mb-2">Nuestros Servicios</h2>
             <p className="md:h5">Conoce todos nuestros servicios</p>
           </div>
           <Suspense fallback={<SkeletonFeaturedProducts />}>
@@ -115,7 +115,7 @@ const Home = () => {
       {/* About Me section  */}
       {about_section_enable && (
         <section id="sobre-mi" className="section">
-          <div className="container-third py-8">
+          <div className="container-five py-8">
             {/* <div className="text-center mb-6 md:mb-14">
               <h2 className="mb-2">Sobre Mí</h2>
             </div> */}
