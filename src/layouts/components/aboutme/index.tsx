@@ -24,7 +24,7 @@ const AboutMePerson = ({ abouts }: { abouts: Array<AboutUsItem> }) => {
                   {section.title}
                 </h2>
                 <div
-                  className="text-white prose prose-lg prose-invert mx-auto"
+                  className="text-white prose-lg mx-auto"
                   dangerouslySetInnerHTML={markdownify(section.content)}
                 />
               </div>
