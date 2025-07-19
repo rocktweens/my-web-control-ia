@@ -99,7 +99,7 @@ const Company = ({
                       />
                     </svg>
                   </div>
-                  <div className={`mt-5 flex flex-col items-center py-10  w-full rounded-2xl ${item?.colorBg ?? "bg-light"}`}>
+                  <div className={`mt-5 flex flex-col items-center p-10  w-full rounded-2xl ${item?.colorBg ?? "bg-light"}`}>
                     <blockquote
                       className={`mt-5 text-center text-xl mx-auto md:col-10 lg:col-8 z-10 `}
                       dangerouslySetInnerHTML={markdownify(item.content)}
