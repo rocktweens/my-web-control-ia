@@ -37,7 +37,7 @@ const Company = ({
               <ImageFallback
                 height={107}
                 width={200}
-                src="/images/brujulatipo44.png"
+                src="/images/brujulatipo44.PNG"
                 alt="Nuestra Brujula"
               />
             </div>
