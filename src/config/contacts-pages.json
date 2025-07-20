@@ -1,8 +1,8 @@
 {
   "main": [
     {
-      "name": "subir",
-      "icon": "FaArrowUp",
+      "name": "home",
+      "icon": "FaHome",
       "link": "/",
       "target": "_self"
     }

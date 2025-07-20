@@ -7,6 +7,7 @@ import SearchBar from "@/components/SearchBar";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import config from "@/config/config.json";
 import social from "@/config/social.json";
+import socialPages from "@/config/social-pages.json";
 import menu from "@/config/menu.json";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -98,10 +99,20 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
   const pathname = usePathname();
   const [showSidebar, setShowSidebar] = useState(false);
   const [showChildMenu, setShowChildMenu] = useState(false);
-
+  const [socialIcons, setSocialIcons] = useState<ISocial[]>(
+    social?.main || [],
+  );
   useEffect(() => {
     window.scroll(0, 0);
     setShowSidebar(false);
+    const arrayLastReferer=pathname.split("/");
+    console.log('arrayLastReferer');
+    console.log(arrayLastReferer);
+    if(arrayLastReferer?.length>2 && !arrayLastReferer[arrayLastReferer?.length-1].includes("#")){
+      setSocialIcons(socialPages.main);
+    }else{
+      setSocialIcons(social.main);
+    }
   }, [pathname]);
 
   useEffect(() => {
@@ -112,6 +123,9 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+
+
 
   const handleToggleSidebar = () => {
     setShowSidebar(!showSidebar);
@@ -167,7 +181,7 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
           <div className="flex items-center space-x-4">
             {/* social share */}
             <ul className="social-icons social-icons-footer">
-              {social?.main.map((socialItem: ISocial) => (
+              {socialIcons?.map((socialItem: ISocial) => (
                 <li key={socialItem.name}>
                   {socialItem.link === "openChat" ? (
                     <button
