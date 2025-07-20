@@ -13,7 +13,7 @@ about_me:
 
 # Me
 about_section_enable: true
-about_section_title: "Valores de la Empresa"
+about_section_title: "Nuestra Brújula"
 abouts:
   - slug: "seccion-mision"
     name: "Misión"

@@ -32,9 +32,18 @@ const Company = ({
       <div className="container">
         <div className="row">
           <div className="mx-auto mb-12 text-center md:col-10 lg:col-8 xl:col-6">
+            {/* Ícono de brújula */}
+            <div className="flex justify-center mb-4">
+              <ImageFallback
+                height={107}
+                width={200}
+                src="/images/brujulatipo44.png"
+                alt="Nuestra Brujula"
+              />
+            </div>
             <h2
               dangerouslySetInnerHTML={markdownify(title ?? "")}
-              className="mb-4"
+              className="mb-4 text-fifty"
             />
             {/* <p
               dangerouslySetInnerHTML={markdownify(
@@ -99,7 +108,9 @@ const Company = ({
                       />
                     </svg>
                   </div>
-                  <div className={`mt-5 flex flex-col items-center p-10  w-full rounded-2xl ${item?.colorBg ?? "bg-light"}`}>
+                  <div
+                    className={`mt-5 flex flex-col items-center p-10  w-full rounded-2xl ${item?.colorBg ?? "bg-light"}`}
+                  >
                     <blockquote
                       className={`mt-5 text-center text-xl mx-auto md:col-10 lg:col-8 z-10 `}
                       dangerouslySetInnerHTML={markdownify(item.content)}
