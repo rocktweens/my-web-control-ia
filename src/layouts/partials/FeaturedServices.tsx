@@ -48,7 +48,7 @@ const FeaturedServices = ({ services }: { services: Service[] }) => {
                 />
               </div>
               <div className="py-2 md:py-4 text-center z-20">
-                <h2 className="font-medium text-base md:text-xl">
+                <h2 className="font-semibold text-base md:text-xl hover:font-bold hover:text-fifty">
                   <Link
                     className="after:absolute after:inset-0"
                     href={`/services/${handle}`}
