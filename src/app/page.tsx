@@ -103,8 +103,8 @@ const Home = () => {
       <section id="seccion-servicios">
         <div className="container">
           <div className="text-center mb-6 md:mb-14 py-8">
-            <h2 className="mb-2">Nuestros Servicios</h2>
-            <p className="md:h5">Conoce todos nuestros servicios</p>
+            <h2 className="mb-2">Conoce Nuestros Servicios</h2>
+            {/* <p className="md:h5">Conoce todos nuestros servicios</p> */}
           </div>
           <Suspense fallback={<SkeletonFeaturedProducts />}>
             <ShowFeaturedServices />
