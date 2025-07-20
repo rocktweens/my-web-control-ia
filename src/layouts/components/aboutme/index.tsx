@@ -10,7 +10,7 @@ const AboutMePerson = ({ abouts }: { abouts: Array<AboutUsItem> }) => {
         {abouts?.map((section, index) => (
           <div
             key={section.title}
-            className="relative mb-16 rounded-xl overflow-hidden shadow-lg"
+            className="relative mb-8 rounded-xl overflow-hidden shadow-lg"
           >
             {/* Imagen de fondo */}
             <div className="absolute inset-0 z-0">
