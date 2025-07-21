@@ -7,7 +7,8 @@ import Footer from "@/partials/Footer";
 import Header from "@/partials/Header";
 import Providers from "@/partials/Providers";
 import { ChatProvider } from "@/context/ChatContext";
-import ChatFloatingWindow from "@/components/ChatFloatingWindow"; // nuevo componente de chat
+import WhatsappFloatingButton from "@/components/WhatsappFloatingButton";
+// import ChatFloatingWindow from "@/components/ChatFloatingWindow"; // nuevo componente de chat
 
 import "@/styles/main.css";
 
@@ -70,7 +71,8 @@ export default function RootLayout({
             <main>{children}</main>
             <Footer />
             {/* Componente de chat, flotante y condicional */}
-            <ChatFloatingWindow />
+            {/* <ChatFloatingWindow /> */}
+            <WhatsappFloatingButton />
           </Providers>
         </ChatProvider>
       </body>
