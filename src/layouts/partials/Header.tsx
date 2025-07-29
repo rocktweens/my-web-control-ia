@@ -108,9 +108,13 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
     const arrayLastReferer=pathname.split("/");
     console.log('arrayLastReferer');
     console.log(arrayLastReferer);
-    if(arrayLastReferer?.length>2 && !arrayLastReferer[arrayLastReferer?.length-1].includes("#")){
+    if (
+      arrayLastReferer?.length > 1 &&
+      arrayLastReferer[arrayLastReferer.length - 1] !== "" &&
+      !arrayLastReferer[arrayLastReferer.length - 1].includes("#")
+    ) {
       setSocialIcons(socialPages.main);
-    }else{
+    } else {
       setSocialIcons(social.main);
     }
   }, [pathname]);

@@ -24,17 +24,18 @@ const Footer = () => {
     contacts?.main || [],
   );
 
-
   useEffect(() => {
-    const arrayLastReferer=(pathname||"").split("/");
-    if(arrayLastReferer?.length>2 && !arrayLastReferer[arrayLastReferer?.length-1].includes("#")){
+    const arrayLastReferer = (pathname || "").split("/");
+    if (
+      arrayLastReferer?.length > 1 &&
+      arrayLastReferer[arrayLastReferer.length - 1] !== "" &&
+      !arrayLastReferer[arrayLastReferer.length - 1].includes("#")
+    ) {
       setSocialIcons(contactsPages.main);
-    }else{
+    } else {
       setSocialIcons(contacts.main);
     }
   }, [pathname]);
-
-
 
   return (
     <footer className="bg-light dark:bg-darkmode-light">
@@ -72,7 +73,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-border py-5 dark:border-darkmode-border">
-          {/*  <div className="flex flex-col md:flex-row gap-y-2 justify-between items-center text-text-light dark:text-darkmode-text-light">
+          <div className="flex flex-col md:flex-row gap-y-2 justify-between items-center text-text-light dark:text-darkmode-text-light">
             <ul className="flex gap-x-4">
               {menu.footerCopyright.map((menu) => (
                 <li className="footer-link" key={menu.name}>
@@ -85,7 +86,7 @@ const Footer = () => {
               className="text-sm font-light"
               dangerouslySetInnerHTML={markdownify(copyright)}
             />
-          </div> */}
+          </div>
         </div>
       </div>
     </footer>

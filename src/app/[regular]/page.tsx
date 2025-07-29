@@ -38,7 +38,7 @@ const RegularPages = async (props: {
       />
       <PageHeader title={title} />
       <section className="section">
-        <div className="container">
+        <div className="container-terms">
           <div className="content">
             <MDXContent content={content} />
           </div>
