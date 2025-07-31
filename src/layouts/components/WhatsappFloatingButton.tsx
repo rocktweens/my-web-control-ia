@@ -7,7 +7,7 @@ const WhatsappFloatingButton = () => {
 
   const openWhatsApp = () => {
     // Reemplazá con tu número o lógica de IA (p.ej., redirección interna)
-    window.open("https://wa.me/5491137647253?text=Hola!%20Quiero%20hacer%20una%20consulta", "_blank");
+    window.open("https://wa.me/5491171753736?text=Hola!%20Quiero%20hacer%20una%20consulta", "_blank");
   };
 
 
