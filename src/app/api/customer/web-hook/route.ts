@@ -1,4 +1,7 @@
 import { NextResponse } from 'next/server';
+import { obtenerRespuestaChatGPT } from "@/lib/chatgpt";
+
+
 
 const VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN;
 
@@ -20,8 +23,38 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   const body = await req.json();
 
-  console.log('Mensaje recibido desde WhatsApp:', JSON.stringify(body, null, 2));
+ const messages = body?.entry?.[0]?.changes?.[0]?.value?.messages;
+  const from = messages?.[0]?.from;
+  const text = messages?.[0]?.text?.body;
 
-  // Acá podrías integrar con ChatGPT u otro servicio
-  return NextResponse.json({ status: 'ok' }, { status: 200 });
+  if (!from || !text) {
+    return NextResponse.json({ status: "ignored" });
+  }
+
+  try {
+    const reply = await obtenerRespuestaChatGPT(text);
+
+    await fetch(
+      `https://graph.facebook.com/v23.0/${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.WHATSAPP_VERIFY_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          messaging_product: "whatsapp",
+          to: from,
+          text: { body: reply },
+        }),
+      },
+    );
+
+    return NextResponse.json({ status: "sent", to: from, reply });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Error en ChatGPT o WhatsApp" },
+      { status: 500 },
+    );
+  }
 }
