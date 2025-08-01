@@ -3,8 +3,8 @@
     {
     "name": "whastsapp",
       "icon": "FaWhatsapp",
-      "link": "openChat",
-      "target": "_self"
+      "link": "https://wa.me/5491171753736?text=Hola!%20Quiero%20hacer%20una%20consulta",
+      "target": "_blank"
     },
     {
     "name": "Mapa",
