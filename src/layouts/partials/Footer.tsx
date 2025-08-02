@@ -77,6 +77,10 @@ const Footer = () => {
             <ul className="flex gap-x-4">
               {menu.footerCopyright.map((menu) => (
                 <li className="footer-link" key={menu.name}>
+                   {/* Si existe el campo icon, se renderiza el componente icono */}
+                    {menu.icon && (
+                       <DynamicIcon className="inline-block" icon={menu.icon} />
+                    )}
                   <Link href={menu.url}>{menu.name}</Link>
                 </li>
               ))}

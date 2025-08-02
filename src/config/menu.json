@@ -76,12 +76,17 @@
       "url": "/privacy-policy"
     },
     {
+      "name": "Avisos Legales",
+      "url": "/legal-notice"
+    },
+    {
       "name": "Términos del Servicio",
       "url": "/terms-services"
     },
     {
-      "name": "Dirección: Tigre, Lavalle 445",
-      "url": "#"
+      "name": " Dirección: Tigre, Lavalle 445",
+      "url": "#",
+      "icon": "FaMapLocation"
     }
   ]
 }

@@ -5,23 +5,30 @@ description: "this is meta description"
 draft: false
 ---
 
-#### 1. Aceptación
+#### 1. Aceptación del usuario
 
-El uso del sitio implica la aceptación total de estos términos.<br/>
+El acceso y uso del sitio web implica la aceptación total de los presentes términos. Si no estás de acuerdo, por favor no utilices este sitio.<br/>
 
 
-#### 2. Uso permitido
+#### 2. Uso del sitio
 
-El usuario se compromete a un uso lícito, sin dañar sistemas o vulnerar derechos.<br/>
+El usuario se compromete a utilizar este sitio de manera lícita, sin vulnerar derechos ni intereses de terceros, y respetando las normas vigentes.
+Está prohibido:
+- Realizar actividades ilícitas o fraudulentas.<br/>
+- Dañar sistemas, redes o introducir virus.<br/>
+- Usar el sitio para fines comerciales no autorizados.<br/>
 
-#### 3. Registro
+#### 3. Registro de usuarios
 
-Si el sitio permite registro, el usuario es responsable de mantener su información veraz y segura.<br/>
+Si ofrecemos servicios personalizados o suscripciones, es posible que se solicite registrarte. En tal caso:<br/>
+- La información debe ser veraz y actualizada.<br/>
+- El usuario es responsable de mantener la confidencialidad de sus credenciales.<br/>
+
 
 #### 4. Modificaciones
 
-ControlIA puede modificar estos textos en cualquier momento. El uso posterior implica aceptación.<br/>
+**ControlIA Consulting** se reserva el derecho de modificar en cualquier momento estos términos, políticas o el contenido del sitio. Las modificaciones entrarán en vigencia desde su publicación.<br/>
 
-#### 5. Legislación
+#### 5. Legislación aplicable
 
-Se rige por las leyes de la República Argentina. Jurisdicción: Ciudad Autónoma de Buenos Aires.<br/>
+Estas condiciones se rigen por las leyes de la República Argentina. En caso de conflicto, las partes se someten a la jurisdicción de los tribunales ordinarios de la Ciudad Autónoma de Buenos Aires.<br/>
