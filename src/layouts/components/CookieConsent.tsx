@@ -55,7 +55,7 @@ const CookieConsent = () => {
   if (!visible) return null;
 
 return (
-  <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-xl bg-[#006d71] text-white text-sm shadow-lg border border-[#00585c] px-6 py-4 rounded-lg">
+  <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-xl bg-[#006d71] text-white text-sm shadow-lg border border-[#00585c] px-6 py-8 rounded-lg">
     <div className="flex flex-col gap-3">
       <p>
         Utilizamos cookies propias y de terceros para mejorar la experiencia del usuario. Podés aceptarlas, rechazarlas o configurarlas desde el aviso de cookies que aparece al ingresar.{" "}
