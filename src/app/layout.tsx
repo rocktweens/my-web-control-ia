@@ -8,6 +8,7 @@ import Header from "@/partials/Header";
 import Providers from "@/partials/Providers";
 import { ChatProvider } from "@/context/ChatContext";
 import WhatsappFloatingButton from "@/components/WhatsappFloatingButton";
+import CookieConsent from "@/components/CookieConsent";
 // import ChatFloatingWindow from "@/components/ChatFloatingWindow"; // nuevo componente de chat
 
 import "@/styles/main.css";
@@ -70,6 +71,9 @@ export default function RootLayout({
             </Header>
             <main>{children}</main>
             <Footer />
+            {/* Componente de cookies, flotante y condicional */}
+            {/* <ChatFloatingWindow /> */}
+            <CookieConsent />
             {/* Componente de chat, flotante y condicional */}
             {/* <ChatFloatingWindow /> */}
             <WhatsappFloatingButton />
