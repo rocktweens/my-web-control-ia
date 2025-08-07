@@ -37,7 +37,7 @@ const FeaturedServices = ({ services }: { services: Service[] }) => {
                   width={312}
                   height={269}
                   alt={featuredImage?.altText || "fallback image"}
-                  className="w-[312px] h-[150px] md:h-[269px] object-cover border border-border rounded-md"
+                  className="w-[312px] h-[150px] md:h-[269px] object-cover border border-border rounded-md mx-auto"
                 />
 
                 <ReadMore
@@ -56,10 +56,10 @@ const FeaturedServices = ({ services }: { services: Service[] }) => {
                     {title}
                   </Link>
                 </h2>
-                <div className="flex flex-wrap  gap-x-2 mt-2 md:mt-4">
-                  <ul className="text-left">
+                <div className="flex flex-wrap  gap-x-2 mt-2 md:mt-4 px-3">
+                  <ul className="text-left w-full">
                     {details?.map((detail: string, index: number) => (
-                      <li  key={`detail-${index}`}  className="inline-block">
+                      <li  key={`detail-${index}`}  className="block w-full">
                         <span className="text-base md:text-xl font-bold text-text-dark dark:text-darkmode-text-dark">
                           {pointSymbol}{" "}
                         </span>
