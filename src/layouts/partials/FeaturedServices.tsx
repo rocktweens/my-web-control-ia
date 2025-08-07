@@ -57,7 +57,7 @@ const FeaturedServices = ({ services }: { services: Service[] }) => {
                   </Link>
                 </h2>
                 <div className="flex flex-wrap  gap-x-2 mt-2 md:mt-4 px-3">
-                  <ul className="text-left w-full">
+                  <ul className="text-center w-full">
                     {details?.map((detail: string, index: number) => (
                       <li  key={`detail-${index}`}  className="block w-full">
                         <span className="text-base md:text-xl font-bold text-text-dark dark:text-darkmode-text-dark">
