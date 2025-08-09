@@ -32,6 +32,12 @@ export async function POST(req: Request) {
 
   try {
     const reply = await obtenerRespuestaChatGPT(text);
+    var htmlText =
+      "<div><h3>Nuevo mensaje de WhatsApp</h3>" +
+      `<p><strong>${from}:</strong> ${text}</p>` +
+      `<p><strong>ChatGpt:</strong> ${reply||""}</p></div>`;
+
+    await enviarMail(htmlText, "whatsapp@controlia.com.ar", "Nuevo mensaje de WhatsApp");
 
     await fetch(
       `https://graph.facebook.com/v23.0/${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`,
@@ -44,17 +50,11 @@ export async function POST(req: Request) {
         body: JSON.stringify({
           messaging_product: "whatsapp",
           to: from,
-          text: { body: reply },
+          text: { body: reply|| "No tengo una respuesta clara." },
         }),
       },
     );
 
-    var htmlText =
-      "<div><h3>Nuevo mensaje de WhatsApp</h3>" +
-      `<p><strong>${from}:</strong> ${text}</p></div>` +
-      `<p><strong>ChatGpt:</strong> ${reply}</p></div>`;
-
-    await enviarMail(htmlText, "whatsapp@controlia.com.ar", "Nuevo mensaje de WhatsApp");
 
     return NextResponse.json({ status: "sent", to: from, reply });
   } catch (error) {
