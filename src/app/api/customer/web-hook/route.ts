@@ -1,21 +1,20 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 import { obtenerRespuestaChatGPT } from "@/lib/chatgpt";
-
-
+import { enviarMail } from "@/lib/mail";
 
 const VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN;
 
 // GET → Verificación inicial de webhook
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const mode = searchParams.get('hub.mode');
-  const token = searchParams.get('hub.verify_token');
-  const challenge = searchParams.get('hub.challenge');
+  const mode = searchParams.get("hub.mode");
+  const token = searchParams.get("hub.verify_token");
+  const challenge = searchParams.get("hub.challenge");
 
-  if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+  if (mode === "subscribe" && token === VERIFY_TOKEN) {
     return new Response(challenge, { status: 200 });
   } else {
-    return new Response('Forbidden', { status: 403 });
+    return new Response("Forbidden", { status: 403 });
   }
 }
 
@@ -23,7 +22,7 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   const body = await req.json();
 
- const messages = body?.entry?.[0]?.changes?.[0]?.value?.messages;
+  const messages = body?.entry?.[0]?.changes?.[0]?.value?.messages;
   const from = messages?.[0]?.from;
   const text = messages?.[0]?.text?.body;
 
@@ -49,6 +48,13 @@ export async function POST(req: Request) {
         }),
       },
     );
+
+    var htmlText =
+      "<div><h3>Nuevo mensaje de WhatsApp</h3>" +
+      `<p><strong>${from}:</strong> ${text}</p></div>` +
+      `<p><strong>ChatGpt:</strong> ${reply}</p></div>`;
+
+    await enviarMail(htmlText, "whatsapp@controlia.com.ar", "Nuevo mensaje de WhatsApp");
 
     return NextResponse.json({ status: "sent", to: from, reply });
   } catch (error) {

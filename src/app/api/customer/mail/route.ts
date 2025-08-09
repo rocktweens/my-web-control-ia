@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { htmlText, from } = body;
+    const { htmlText, from, subject } = body;
 
     if (!htmlText) {
       return NextResponse.json(
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
       from: process.env.SMTP_USER || "noreply@controlia.com.ar",
       to: "consultas@controlia.com.ar",
       replyTo: from,
-      subject: "Nuevo mensaje desde el formulario web",
+      subject: subject,
       html: htmlText,
     });
 

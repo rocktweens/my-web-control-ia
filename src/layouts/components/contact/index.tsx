@@ -74,7 +74,7 @@ const Contacto = () => {
     const response = await fetch("/api/customer/mail", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ htmlText , from: formData.cemail}),
+      body: JSON.stringify({ htmlText , from: formData.cemail, subject: "Nuevo mensaje desde el formulario web" }),
     });
 
     const respData = await response.json();
