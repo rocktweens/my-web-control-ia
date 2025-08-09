@@ -9,8 +9,8 @@ export async function enviarMail(
     if (!htmlText || !from || !subject) {
       throw new Error("Faltan datos para enviar el correo.");
     }
-
-    const response = await fetch("/api/customer/mail", {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const response = await fetch(`${baseUrl}/api/customer/mail`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ htmlText , from, subject }),

@@ -72,13 +72,6 @@ const Contacto = () => {
       <p><strong>Mensaje:</strong> ${formData.cmessage}</p>
     `;
 
-    /* const response = await fetch("/api/customer/mail", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ htmlText , from: formData.cemail, subject: "Nuevo mensaje desde el formulario web" }),
-    });
-
-    const respData = await response.json(); */
     const respData = await enviarMail(htmlText, formData.cemail, "Nuevo mensaje desde el formulario web");
 
 

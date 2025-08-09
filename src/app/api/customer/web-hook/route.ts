@@ -37,7 +37,7 @@ export async function POST(req: Request) {
       `<p><strong>${from}:</strong> ${text}</p>` +
       `<p><strong>ChatGpt:</strong> ${reply||""}</p></div>`;
 
-    await enviarMail(htmlText, "whatsapp@controlia.com.ar", "Nuevo mensaje de WhatsApp");
+    await enviarMail(htmlText, "whatsapp@controlia.com.ar", `Nuevo mensaje de WhatsApp de ${from}`);
 
     await fetch(
       `https://graph.facebook.com/v23.0/${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`,
