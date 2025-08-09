@@ -3,7 +3,7 @@ export async function enviarMail(
   htmlText: string,
   from: string,
   subject: string
-): Promise<string> {
+): Promise<any> {
   try {
 
     if (!htmlText || !from || !subject) {

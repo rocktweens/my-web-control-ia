@@ -6,6 +6,7 @@ import config from "@/config/config.json";
 import { ServiceList } from "@/lib/strapi/types";
 import Modal from "@/components/Modal";
 import { BiLoaderAlt } from "react-icons/bi";
+import { enviarMail } from "@/lib/mail";
 
 interface FormData {
   cname: string;
@@ -71,13 +72,15 @@ const Contacto = () => {
       <p><strong>Mensaje:</strong> ${formData.cmessage}</p>
     `;
 
-    const response = await fetch("/api/customer/mail", {
+    /* const response = await fetch("/api/customer/mail", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ htmlText , from: formData.cemail, subject: "Nuevo mensaje desde el formulario web" }),
     });
 
-    const respData = await response.json();
+    const respData = await response.json(); */
+    const respData = await enviarMail(htmlText, formData.cemail, "Nuevo mensaje desde el formulario web");
+
 
     setLoading(false);
     if (respData?.success) {
