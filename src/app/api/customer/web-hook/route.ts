@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { obtenerRespuestaChatGPT } from "@/lib/chatgpt";
 import { enviarMail } from "@/lib/mail";
+import { createChat } from "@/lib/strapi";
 
 const VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN;
 
@@ -37,7 +38,23 @@ export async function POST(req: Request) {
       `<p><strong>${from}:</strong> ${text}</p>` +
       `<p><strong>ChatGpt:</strong> ${reply||""}</p></div>`;
 
-    await enviarMail(htmlText, "whatsapp@controlia.com.ar", `Nuevo mensaje de WhatsApp de ${from}`);
+    //await enviarMail(htmlText, "whatsapp@controlia.com.ar", `Nuevo mensaje de WhatsApp de ${from}`);
+
+    // Guardar el chat en Strapi
+    await createChat({
+      entidad_de: from,
+      mensaje: text,
+      remitente: "cliente",
+      fecha_hora: new Date().toISOString(),
+    });
+
+    await createChat({
+      entidad_de: from,
+      mensaje: reply,
+      remitente: "bot",
+      fecha_hora: new Date().toISOString(),
+      respondido_manual: false
+    });
 
     await fetch(
       `https://graph.facebook.com/v23.0/${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`,

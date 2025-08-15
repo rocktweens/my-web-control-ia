@@ -379,3 +379,11 @@ export type ShopifyProductsOperation = {
     cursor?: string;
   };
 };
+
+export interface Chat {
+  entidad_de: string;
+  mensaje: string;
+  remitente: 'cliente' | 'bot' | 'manual';
+  fecha_hora: string; // ISO string, ej: "2025-08-14T19:30:00Z"
+  respondido_manual?: boolean;
+}

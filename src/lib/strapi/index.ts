@@ -72,6 +72,7 @@ import {
   registerOperation,
   user,
   userOperation,
+  Chat,
 } from "./types";
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
@@ -325,43 +326,45 @@ export async function getCollectionServices({
 }): Promise<{ pageInfo: PageInfo | null; services: Service[] }> {
   return {
     pageInfo: null,
-    services: dataServices.filter(x=>x.enabled).map((s) => {
-      const image = {
-        url: s.image,
-        altText: s.title,
-        width: 1200,
-        height: 800,
-      };
+    services: dataServices
+      .filter((x) => x.enabled)
+      .map((s) => {
+        const image = {
+          url: s.image,
+          altText: s.title,
+          width: 1200,
+          height: 800,
+        };
 
-      const variants = [
-        {
-          id: "variant-001",
-          title: "Plan Básico",
-          selectedOptions: [
-            { name: "Duración", value: "1 mes" },
-            { name: "Consultas", value: "2 reuniones virtuales" },
-          ],
-        },
-        {
-          id: "variant-002",
-          title: "Plan Avanzado",
-          selectedOptions: [
-            { name: "Duración", value: "3 meses" },
-            { name: "Consultas", value: "Reuniones semanales" },
-          ],
-        },
-      ];
-      return {
-        id: s.slug,
-        title: s.title,
-        description: s.description,
-        featuredImage: image,
-        variants: variants,
-        images: [image],
-        handle: s.slug,
-        details: s.detalle
-      };
-    }),
+        const variants = [
+          {
+            id: "variant-001",
+            title: "Plan Básico",
+            selectedOptions: [
+              { name: "Duración", value: "1 mes" },
+              { name: "Consultas", value: "2 reuniones virtuales" },
+            ],
+          },
+          {
+            id: "variant-002",
+            title: "Plan Avanzado",
+            selectedOptions: [
+              { name: "Duración", value: "3 meses" },
+              { name: "Consultas", value: "Reuniones semanales" },
+            ],
+          },
+        ];
+        return {
+          id: s.slug,
+          title: s.title,
+          description: s.description,
+          featuredImage: image,
+          variants: variants,
+          images: [image],
+          handle: s.slug,
+          details: s.detalle,
+        };
+      }),
   };
 }
 
@@ -468,9 +471,8 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
 }
 
 export async function getService(handle: string): Promise<Service | undefined> {
-
-  var service = dataServices.find(x=>x.slug==handle);
-  if(service){
+  var service = dataServices.find((x) => x.slug == handle);
+  if (service) {
     const image = {
       url: service.image,
       altText: service.title,
@@ -504,10 +506,10 @@ export async function getService(handle: string): Promise<Service | undefined> {
       variants: variants,
       images: [image],
       handle: service.slug,
-      details: service.detalle
+      details: service.detalle,
     };
   }
-return undefined;
+  return undefined;
 }
 
 export async function getProductRecommendations(
@@ -661,3 +663,70 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
 
   return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
 }
+
+export const getChats = async (
+  from: string,
+  fechaDesde: string,
+): Promise<Chat[]> => {
+  const query = new URLSearchParams({
+    "filters[from][$eq]": from,
+    "filters[fecha_hora][$gte]": fechaDesde,
+    "sort[0]": "fecha_hora:asc",
+    "pagination[limit]": "100",
+  });
+
+  const res = await fetch(
+    `${process.env.STRAPI_API_URL}/chats-bots?${query.toString()}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+  );
+
+  if (!res.ok) {
+    throw new Error(`Error al obtener los chats: ${res.status}`);
+  }
+
+  const data = await res.json();
+
+  // Strapi devuelve los datos en un objeto `data`
+  return data.data.map((item: any) => ({
+    entidad_de: item.attributes.entidad_de,
+    mensaje: item.attributes.mensaje,
+    remitente: item.attributes.remitente,
+    fecha_hora: item.attributes.fecha_hora,
+    respondido_manual: item.attributes.respondido_manual,
+  }));
+};
+
+export const createChat = async (chat: Chat): Promise<any> => {
+  console.log(
+    `Creando Chat en strapi ${process.env.STRAPI_API_URL}/api/chats-bots`,
+    chat,
+  );
+  try {
+    const res = await fetch(`${process.env.STRAPI_API_URL}/api/chats-bots`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // Si Strapi requiere autenticación, agrega el Authorization header
+        // 'Authorization': `Bearer TU_TOKEN`
+      },
+      body: JSON.stringify({
+        data: chat,
+      }),
+    });
+
+    if (!res.ok) {
+      throw new Error(`Error al crear el chat: ${res.status}`);
+    }
+
+    const data = await res.json();
+    console.error("se inserto el registro:", data);
+    return data;
+  } catch (e) {
+    console.error("Error al crear el chat:", e);
+    throw new Error("Error al crear el chat");
+  }
+};
