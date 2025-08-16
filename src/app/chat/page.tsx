@@ -254,12 +254,14 @@ export default function ChatPage() {
   return (
     <div className="flex flex-col h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-primary text-white p-4 shadow-md flex justify-between items-center">
-        <h1 className="text-lg font-semibold">
-          <span className="text-white">{`Panel de Chat con cliente ${inputNombre} - ${ultimoCliente}`}</span>
+      <header className="bg-primary text-white p-4 shadow-md flex flex-col md:flex-row md:justify-between md:items-center space-y-4 md:space-y-0">
+        <h1 className="text-lg font-semibold text-white">
+          {`${inputNombre} - ${ultimoCliente}`}
         </h1>
-        {/* Controles del header */}
-        <div className="flex items-center space-x-4">
+
+        {/* Controles */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0 w-full md:w-auto">
+          {/* Checkbox */}
           <label className="flex items-center space-x-2 text-sm">
             <span>Modo Manual</span>
             <input
@@ -269,36 +271,36 @@ export default function ChatPage() {
               className="form-checkbox h-4 w-4 text-primary"
             />
           </label>
+
+          {/* Input nombre + botón */}
           <div className="flex items-center bg-white rounded-md overflow-hidden">
             <input
               type="text"
               value={inputNombre}
               onChange={(e) => setInputNombre(e.target.value)}
               placeholder="Actualizar Nombre..."
-              className="text-sm text-black px-2 py-1 border border-gray-300 outline-none"
+              className="text-sm text-black px-2 py-1 border border-gray-300 outline-none w-full sm:w-auto"
             />
             <button
               onClick={handleActualizar}
-              className="px-2 py-1 bg-secondary  hover:bg-primary text-white"
+              className="px-2 py-1 bg-secondary hover:bg-primary text-white"
               title="Actualizar"
             >
               <FaCheckCircle size={22} />
-              {/* O usa un ícono SVG aquí si prefieres */}
             </button>
           </div>
-          <div className="flex items-center bg-white rounded-md overflow-hidden">
-            <button
-              onClick={() => {
-                setVistaChatActiva(false);
-                setUltimoCliente("");
-              }}
-              className="px-2 py-1 bg-secondary  hover:bg-primary text-white"
-              title="Volver Listado"
-            >
-              <FaChevronCircleLeft size={22} />
-              {/* O usa un ícono SVG aquí si prefieres */}
-            </button>
-          </div>
+
+          {/* Botón Volver */}
+          <button
+            onClick={() => {
+              setVistaChatActiva(false);
+              setUltimoCliente("");
+            }}
+            className="px-2 py-1 bg-secondary hover:bg-primary text-white flex items-center justify-center"
+            title="Volver al Listado"
+          >
+            <FaChevronCircleLeft size={22} />
+          </button>
         </div>
       </header>
 
