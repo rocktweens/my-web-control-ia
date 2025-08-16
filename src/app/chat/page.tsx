@@ -1,7 +1,7 @@
 // app/chat/page.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   createChat,
   getChats,
@@ -24,9 +24,19 @@ export default function ChatPage() {
   const [checked, setChecked] = useState(false);
   const [inputNombre, setInputNombre] = useState("");
   const [vistaChatActiva, setVistaChatActiva] = useState(false);
+  const ultimoClienteRef = useRef(ultimoCliente);
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+
+  interface ClienteConChat {
+    nombre: string;
+    entidad_de: string;
+    ultimo_chat?: {
+      mensaje: string;
+      fecha_hora: string;
+    };
+  }
 
   // Obtener lista de clientes con chats recientes
   const fetchClientesConChats = async () => {
@@ -39,6 +49,7 @@ export default function ChatPage() {
   };
 
   const fetchMensajes = async (paramIdCliente: string) => {
+    console.log("último cliente:", paramIdCliente);
     try {
       let res = [] as Chat[];
       if (paramIdCliente) {
@@ -74,10 +85,17 @@ export default function ChatPage() {
     }
   };
 
+  // Mantener ref sincronizada
+  useEffect(() => {
+    ultimoClienteRef.current = ultimoCliente;
+  }, [ultimoCliente]);
+
   // Cargar mensajes desde Strapi al iniciar
   useEffect(() => {
     const interval = setInterval(async () => {
-      fetchMensajes(ultimoCliente);
+      const id = ultimoClienteRef.current;
+      console.log("Cargando mensajes cada 3 segundos...", id);
+      if (id) fetchMensajes(id);
       fetchClientesConChats();
     }, 3000);
     return () => clearInterval(interval); // limpieza al desmontar
@@ -199,14 +217,33 @@ export default function ChatPage() {
             <li
               key={clienteChats.entidad_de}
               className="bg-white p-4 shadow rounded hover:bg-gray-100 cursor-pointer"
-              onClick={() => fetchMensajes(clienteChats.entidad_de)}
+              onClick={() => {
+                setUltimoCliente(clienteChats.entidad_de);
+                fetchMensajes(clienteChats.entidad_de);
+              }}
             >
-              <span className="font-semibold">
-                {clienteChats.nombre || "Sin nombre"}
-              </span>
-              <span className="text-sm text-gray-500 ml-2">
-                ({clienteChats.entidad_de})
-              </span>
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                  <span className="font-semibold text-gray-800">
+                    {clienteChats.nombre || "Sin nombre"}
+                  </span>
+                  <span className="text-sm text-gray-500 ml-2">
+                    ({clienteChats.entidad_de})
+                  </span>
+                </div>
+                <div className="text-sm text-gray-600 mt-2 md:mt-0 md:text-right">
+                  <p className="truncate max-w-xs">
+                    {clienteChats.ultimo_chat?.mensaje || "Sin mensaje"}
+                  </p>
+                  <p className="text-xs text-gray-400">
+                    {clienteChats.ultimo_chat?.fecha_hora
+                      ? new Date(
+                          clienteChats.ultimo_chat.fecha_hora,
+                        ).toLocaleTimeString()
+                      : ""}
+                  </p>
+                </div>
+              </div>
             </li>
           ))}
         </ul>
@@ -251,7 +288,10 @@ export default function ChatPage() {
           </div>
           <div className="flex items-center bg-white rounded-md overflow-hidden">
             <button
-              onClick={() => setVistaChatActiva(false)}
+              onClick={() => {
+                setVistaChatActiva(false);
+                setUltimoCliente("");
+              }}
               className="px-2 py-1 bg-secondary  hover:bg-primary text-white"
               title="Volver Listado"
             >
