@@ -387,3 +387,10 @@ export interface Chat {
   fecha_hora: string; // ISO string, ej: "2025-08-14T19:30:00Z"
   respondido_manual?: boolean;
 }
+
+
+export interface Cliente {
+  entidad_de: string;
+  nombre?: string;
+  es_manual?: boolean;
+}

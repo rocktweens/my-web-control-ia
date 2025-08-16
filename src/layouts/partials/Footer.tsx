@@ -23,6 +23,9 @@ const Footer = () => {
   const [socialIcons, setSocialIcons] = useState<ISocial[]>(
     contacts?.main || [],
   );
+/*   if (pathname.startsWith("/chat")) {
+    return null;
+  } */
 
   useEffect(() => {
     const arrayLastReferer = (pathname || "").split("/");

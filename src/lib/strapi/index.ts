@@ -73,6 +73,7 @@ import {
   user,
   userOperation,
   Chat,
+  Cliente,
 } from "./types";
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
@@ -667,43 +668,50 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
 export const getChats = async (
   from: string,
   fechaDesde: string,
+  respondidoManual: string,
+  orderBy: string,
+  limit: number = 100,
 ): Promise<Chat[]> => {
+  let filtroFrom =
+    from == "*" ? "filters[entidad_de][$ne]" : "filters[entidad_de][$eq]";
   const query = new URLSearchParams({
-    "filters[from][$eq]": from,
-    "filters[fecha_hora][$gte]": fechaDesde,
-    "sort[0]": "fecha_hora:asc",
-    "pagination[limit]": "100",
+    [filtroFrom]: `${from == "*" ? null : from}`,
+    "filters[fecha_hora][$gte]": fechaDesde /*
+    "filters[respondido_manual][$eq]": respondidoManual,*/,
+    "sort[0]": `fecha_hora:${orderBy || "asc"}`,
+    "pagination[limit]": limit.toString(),
+  });
+  const endpoint = `${process.env.STRAPI_API_URL}/api/chats-bots?${query.toString()}`;
+  console.log("Obteniendo chats desde Strapi:", endpoint);
+  const res = await fetch(endpoint, {
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 
-  const res = await fetch(
-    `${process.env.STRAPI_API_URL}/chats-bots?${query.toString()}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    },
-  );
-
   if (!res.ok) {
+    console.log("Error al obtener los chats:", res.statusText);
     throw new Error(`Error al obtener los chats: ${res.status}`);
   }
 
-  const data = await res.json();
+  const resp = await res.json();
 
   // Strapi devuelve los datos en un objeto `data`
-  return data.data.map((item: any) => ({
-    entidad_de: item.attributes.entidad_de,
-    mensaje: item.attributes.mensaje,
-    remitente: item.attributes.remitente,
-    fecha_hora: item.attributes.fecha_hora,
-    respondido_manual: item.attributes.respondido_manual,
+  var result = resp.data.map((item: Chat) => ({
+    entidad_de: item.entidad_de,
+    mensaje: item.mensaje,
+    remitente: item.remitente,
+    fecha_hora: item.fecha_hora,
+    respondido_manual: item.respondido_manual,
   }));
+  //console.log("Datos obtenidos de los chats:", result);
+
+  return result;
 };
 
 export const createChat = async (chat: Chat): Promise<any> => {
   console.log(
     `Creando Chat en strapi ${process.env.STRAPI_API_URL}/api/chats-bots`,
-    chat,
   );
   try {
     const res = await fetch(`${process.env.STRAPI_API_URL}/api/chats-bots`, {
@@ -723,10 +731,73 @@ export const createChat = async (chat: Chat): Promise<any> => {
     }
 
     const data = await res.json();
-    console.error("se inserto el registro:", data);
+    //console.log("se inserto el registro:", data);
     return data;
   } catch (e) {
     console.error("Error al crear el chat:", e);
     throw new Error("Error al crear el chat");
+  }
+};
+
+export const getClientes = async (from: string): Promise<Cliente[]> => {
+  let filtroFrom = "filters[entidad_de][$eq]";
+  const query = new URLSearchParams({
+    [filtroFrom]: `${from}`,
+  });
+  const endpoint = `${process.env.STRAPI_API_URL}/api/clientes?${query.toString()}`;
+  console.log("Obteniendo cliente desde Strapi:", endpoint);
+  const res = await fetch(endpoint, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!res.ok) {
+    console.log("Error al obtener los chats:", res.statusText);
+    throw new Error(`Error al obtener los chats: ${res.status}`);
+  }
+
+  const resp = await res.json();
+
+  // Strapi devuelve los datos en un objeto `data`
+  var result = resp.data.map((item: Cliente) => ({
+    entidad_de: item.entidad_de,
+    nombre: item.nombre,
+    es_manual: item.es_manual
+  }));
+  //console.log("Datos obtenidos de los chats:", result);
+
+  return result;
+};
+export const updateCliente = async (cliente: Cliente): Promise<Cliente> => {
+  console.log(
+    `Actualizando Cliente en strapi ${process.env.STRAPI_API_URL}/api/clientes/actualizar-por-entidad`,
+  );
+  try {
+    const res = await fetch(
+      `${process.env.STRAPI_API_URL}/api/actualizar-por-entidad-de`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          // Si Strapi requiere autenticación, agrega el Authorization header
+          // 'Authorization': `Bearer TU_TOKEN`
+        },
+        body: JSON.stringify({
+          data: cliente,
+        }),
+      },
+    );
+
+    if (!res.ok) {
+      throw new Error(`Error al actualizar el cliente: ${res.status}`);
+    }
+
+    const resp = await res.json();
+    console.log("se inserto el registro:", resp);
+    return resp.cliente;
+  } catch (e) {
+    console.error("Error al actualizar el cliente:", e);
+    throw new Error("Error al actualizar el cliente");
   }
 };

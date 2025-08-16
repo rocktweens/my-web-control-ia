@@ -102,12 +102,14 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
   const [socialIcons, setSocialIcons] = useState<ISocial[]>(
     social?.main || [],
   );
+
+/*   if (pathname.startsWith("/chat")) {
+    return null;
+  } */
   useEffect(() => {
     window.scroll(0, 0);
     setShowSidebar(false);
     const arrayLastReferer=pathname.split("/");
-    console.log('arrayLastReferer');
-    console.log(arrayLastReferer);
     if (
       arrayLastReferer?.length > 1 &&
       arrayLastReferer[arrayLastReferer.length - 1] !== "" &&
