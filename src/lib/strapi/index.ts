@@ -801,3 +801,38 @@ export const updateCliente = async (cliente: Cliente): Promise<Cliente> => {
     throw new Error("Error al actualizar el cliente");
   }
 };
+
+export const createCliente = async (cliente: Cliente): Promise<Cliente> => {
+  console.log(
+    `Creando Cliente en strapi ${process.env.STRAPI_API_URL}/api/clientes`,
+  );
+  try {
+    const res = await fetch(
+      `${process.env.STRAPI_API_URL}/api/clientes`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // Si Strapi requiere autenticación, agrega el Authorization header
+          // 'Authorization': `Bearer TU_TOKEN`
+        },
+        body: JSON.stringify({
+          data: cliente,
+        }),
+      },
+    );
+
+    if (!res.ok) {
+      throw new Error(`Error al crear el cliente: ${res.status}`);
+    }
+
+    const resp = await res.json();
+    console.log("se inserto el registro del cliente:", resp);
+    return resp.data;
+  } catch (e) {
+    console.error("Error al crear el cliente:", e);
+    throw new Error("Error al crear el cliente");
+  }
+};
+
+

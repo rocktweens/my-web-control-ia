@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { obtenerRespuestaChatGPT } from "@/lib/chatgpt";
 import { enviarMail } from "@/lib/mail";
 import { enviarMensaje } from "@/lib/facebook";
-import { createChat, getChats, getClientes } from "@/lib/strapi";
+import { createChat, getChats, getClientes, createCliente } from "@/lib/strapi";
 
 const VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN;
 
@@ -49,6 +49,13 @@ export async function POST(req: Request) {
     const clientes = await getClientes(from.toString());
 
     const checkChatManual = clientes.length > 0 && clientes[0]?.es_manual;
+
+    if(clientes.length == 0){
+      await createCliente({
+        entidad_de: from,
+        es_manual: false
+      });
+    }
 
     // Guardar el chat en Strapi
     await createChat({
