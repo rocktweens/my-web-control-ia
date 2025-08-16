@@ -65,7 +65,21 @@ export default function ChatPage() {
         respondido_manual: true,
       });
 
-      await enviarMensaje(true, ultimoCliente, nuevoMensaje);
+      var respEnvio = await fetch("/api/customer/send-chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          isManual: true,
+          from: ultimoCliente,
+          reply: nuevoMensaje,
+        }),
+      });
+
+
+      //var respEnvio = await enviarMensaje(true, ultimoCliente, nuevoMensaje);
+      console.log("Respuesta de envío:", respEnvio);
       const res = await getChats(
         ultimoCliente,
         today.toISOString(),

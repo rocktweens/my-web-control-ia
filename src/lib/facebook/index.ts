@@ -8,20 +8,25 @@ export async function enviarMensaje(
       throw new Error("Faltan datos para enviar el mensaje.");
     }
 
-    var response = await fetch(
-      `https://graph.facebook.com/v23.0/${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.WHATSAPP_VERIFY_TOKEN}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          messaging_product: "whatsapp",
-          to: from,
-          text: { body: reply || "No tengo una respuesta clara." },
-        }),
+    var params = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.WHATSAPP_VERIFY_TOKEN}`,
+        "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        messaging_product: "whatsapp",
+        to: from,
+        text: { body: reply || "No tengo una respuesta clara." },
+      }),
+    };
+    var paramUrl = `https://graph.facebook.com/v23.0/${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`;
+    console.log("URL de envío:", paramUrl);
+    console.log("Parámetros de envío:", params);
+
+    var response = await fetch(
+      paramUrl,
+      params
     );
 
     return await response.json();
