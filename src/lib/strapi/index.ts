@@ -740,9 +740,10 @@ export const createChat = async (chat: Chat): Promise<any> => {
 };
 
 export const getClientes = async (from: string): Promise<Cliente[]> => {
-  let filtroFrom = "filters[entidad_de][$eq]";
+  let filtroFrom = from == "*" ? "filters[entidad_de][$ne]" : "filters[entidad_de][$eq]";
+
   const query = new URLSearchParams({
-    [filtroFrom]: `${from}`,
+    [filtroFrom]: `${from == "*" ? null : from}`,
   });
   const endpoint = `${process.env.STRAPI_API_URL}/api/clientes?${query.toString()}`;
   console.log("Obteniendo cliente desde Strapi:", endpoint);
@@ -835,4 +836,29 @@ export const createCliente = async (cliente: Cliente): Promise<Cliente> => {
   }
 };
 
+
+export const getUltimosChatsxClientes = async (): Promise<any[]> => {
+try{
+  const endpoint = `${process.env.STRAPI_API_URL}/api/ultimos-chats-por-cliente`;
+  console.log("Obteniendo ultimos chats x cliente desde Strapi:", endpoint);
+  const res = await fetch(endpoint, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!res.ok) {
+    console.log("Error al obtener los chats:", res.statusText);
+    throw new Error(`Error al obtener los chats: ${res.status}`);
+  }
+
+  const resp = await res.json();
+
+  // Strapi devuelve los datos en un objeto `data`
+  return resp.chatxcliente;
+  } catch (e) {
+    console.error("Error al crear el cliente:", e);
+    throw new Error("Error al crear el cliente");
+  }
+};
 

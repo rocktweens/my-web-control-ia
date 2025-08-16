@@ -2,51 +2,83 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { createChat, getChats, getClientes, updateCliente } from "@/lib/strapi";
+import {
+  createChat,
+  getChats,
+  getClientes,
+  updateCliente,
+  getUltimosChatsxClientes,
+} from "@/lib/strapi";
 import { Chat, Cliente } from "@/lib/strapi/types";
 import { enviarMensaje } from "@/lib/facebook";
-import { FaRobot, FaCheckCircle } from "react-icons/fa";
+import { FaRobot, FaCheckCircle, FaChevronCircleLeft } from "react-icons/fa";
 import { set } from "date-fns";
 
 export default function ChatPage() {
   const [mensajes, setMensajes] = useState<Chat[]>([]);
   const [cliente, setCliente] = useState<Cliente>();
+  const [clientesConChats, setClientesConChats] = useState<any[]>([]);
   const [nuevoMensaje, setNuevoMensaje] = useState("");
   const [ultimoCliente, setUltimoCliente] = useState("");
   const [cargando, setCargando] = useState(false);
   const [checked, setChecked] = useState(false);
   const [inputNombre, setInputNombre] = useState("");
+  const [vistaChatActiva, setVistaChatActiva] = useState(false);
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+
+  // Obtener lista de clientes con chats recientes
+  const fetchClientesConChats = async () => {
+    try {
+      const filtrados = await getUltimosChatsxClientes();
+      setClientesConChats(filtrados);
+    } catch (error) {
+      console.error("Error al obtener clientes con chats:", error);
+    }
+  };
+
+  const fetchMensajes = async (paramIdCliente: string) => {
+    try {
+      let res = [] as Chat[];
+      if (paramIdCliente) {
+        res = await getChats(
+          paramIdCliente,
+          today.toISOString(),
+          "*",
+          "asc",
+          50,
+        );
+      }
+
+      console.log("Mensajes del último cliente:", res);
+      if (res.length > 0) {
+        const idCliente = res[res.length - 1]?.entidad_de || "";
+        console.log("Idcliente:", idCliente);
+        setUltimoCliente(idCliente);
+        const clientes = await getClientes(idCliente);
+        console.log("clientes:", clientes);
+        setCliente(clientes[0]);
+        setInputNombre(clientes[0]?.nombre || "");
+        setChecked(clientes[0]?.es_manual || false);
+
+        const chatsUltimoCliente = res.filter(
+          (msg) => msg.entidad_de === idCliente,
+        );
+        console.log("Mensajes del último cliente:", chatsUltimoCliente);
+        setMensajes(chatsUltimoCliente);
+        setVistaChatActiva(true);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   // Cargar mensajes desde Strapi al iniciar
   useEffect(() => {
-    const fetchMensajes = async () => {
-      try {
-        const res = await getChats("*", today.toISOString(), "*", "asc", 50);
-        console.log("Mensajes del último cliente:", res);
-        if (res.length > 0) {
-          const idCliente = res[res.length - 1]?.entidad_de || "";
-          console.log("Idcliente:", idCliente);
-          setUltimoCliente(idCliente);
-          const clientes = await getClientes(idCliente);
-          console.log("clientes:", clientes);
-          setCliente(clientes[0]);
-          setInputNombre(clientes[0]?.nombre || "");
-          setChecked(clientes[0]?.es_manual || false);
-
-          const chatsUltimoCliente = res.filter(
-            (msg) => msg.entidad_de === idCliente,
-          );
-          console.log("Mensajes del último cliente:", chatsUltimoCliente);
-          setMensajes(chatsUltimoCliente);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
     const interval = setInterval(async () => {
-      fetchMensajes();
+      fetchMensajes(ultimoCliente);
+      fetchClientesConChats();
     }, 3000);
     return () => clearInterval(interval); // limpieza al desmontar
   }, []);
@@ -134,7 +166,6 @@ export default function ChatPage() {
           }),
         });
       }
-
     } catch (error) {
       console.error("Error en fetch:", error);
     }
@@ -155,6 +186,33 @@ export default function ChatPage() {
       console.error("Error al actualizar:", error);
     }
   };
+
+  // VISTA: LISTADO DE CLIENTES
+  if (!vistaChatActiva) {
+    return (
+      <div className="p-6 bg-gray-50 min-h-screen">
+        <h2 className="text-2xl font-bold mb-4">
+          Clientes con Chats Recientes
+        </h2>
+        <ul className="space-y-3">
+          {clientesConChats.map((clienteChats) => (
+            <li
+              key={clienteChats.entidad_de}
+              className="bg-white p-4 shadow rounded hover:bg-gray-100 cursor-pointer"
+              onClick={() => fetchMensajes(clienteChats.entidad_de)}
+            >
+              <span className="font-semibold">
+                {clienteChats.nombre || "Sin nombre"}
+              </span>
+              <span className="text-sm text-gray-500 ml-2">
+                ({clienteChats.entidad_de})
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
@@ -188,6 +246,16 @@ export default function ChatPage() {
               title="Actualizar"
             >
               <FaCheckCircle size={22} />
+              {/* O usa un ícono SVG aquí si prefieres */}
+            </button>
+          </div>
+          <div className="flex items-center bg-white rounded-md overflow-hidden">
+            <button
+              onClick={() => setVistaChatActiva(false)}
+              className="px-2 py-1 bg-secondary  hover:bg-primary text-white"
+              title="Volver Listado"
+            >
+              <FaChevronCircleLeft size={22} />
               {/* O usa un ícono SVG aquí si prefieres */}
             </button>
           </div>
