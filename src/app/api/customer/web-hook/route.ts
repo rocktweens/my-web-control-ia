@@ -50,10 +50,10 @@ export async function POST(req: Request) {
 
     const checkChatManual = clientes.length > 0 && clientes[0]?.es_manual;
 
-    if(clientes.length == 0){
+    if (clientes.length == 0) {
       await createCliente({
         entidad_de: from,
-        es_manual: false
+        es_manual: false,
       });
     }
 
@@ -64,28 +64,17 @@ export async function POST(req: Request) {
       remitente: "cliente",
       fecha_hora: new Date().toISOString(),
     });
-    if (
-      checkChatManual //||
-      /*   (checkChatManual.length > 1 &&
-        checkChatManual[1].respondido_manual &&
-        checkChatManual[1].remitente == "manual") */
-    ) {
-      // Si hay un chat manual, no enviar el mensaje a WhatsApp
-      reply = "Te va a contestar un agente espera unos minutos...";
-      isManual = true;
-    } else {
+    if (!checkChatManual) {
       reply = await obtenerRespuestaChatGPT(text);
+      await createChat({
+        entidad_de: from,
+        mensaje: reply,
+        remitente: "bot",
+        fecha_hora: new Date().toISOString(),
+        respondido_manual: isManual,
+      });
+      await enviarMensaje(isManual, from, reply);
     }
-
-    await createChat({
-      entidad_de: from,
-      mensaje: reply,
-      remitente: "bot",
-      fecha_hora: new Date().toISOString(),
-      respondido_manual: isManual,
-    });
-
-    await enviarMensaje(isManual, from, reply);
 
     return NextResponse.json({ status: "sent", to: from, reply });
   } catch (e: any) {

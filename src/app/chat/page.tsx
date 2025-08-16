@@ -77,7 +77,6 @@ export default function ChatPage() {
         }),
       });
 
-
       //var respEnvio = await enviarMensaje(true, ultimoCliente, nuevoMensaje);
       console.log("Respuesta de envío:", respEnvio);
       const res = await getChats(
@@ -112,7 +111,30 @@ export default function ChatPage() {
       });
       console.log("Cliente actualizado isChecked?:", resp);
 
-      // Simulación: await fetchCheckboxData(newValue);
+      if (isChecked) {
+        var textsend = "Te va a contestar un agente espera unos minutos...";
+
+        await createChat({
+          entidad_de: ultimoCliente,
+          mensaje: textsend,
+          remitente: "manual",
+          fecha_hora: new Date().toISOString(),
+          respondido_manual: true,
+        });
+
+        var respEnvio = await fetch("/api/customer/send-chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            isManual: true,
+            from: ultimoCliente,
+            reply: textsend,
+          }),
+        });
+      }
+
     } catch (error) {
       console.error("Error en fetch:", error);
     }
