@@ -3,6 +3,7 @@ const withPWA = require("next-pwa")({
   dest: "public",
   register: true,
   skipWaiting: true,
+  scope: "/chat/",
   disable: process.env.NODE_ENV === "development", // desactiva PWA en dev
 });
 
