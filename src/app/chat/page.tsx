@@ -10,7 +10,7 @@ export default function Chat() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
 
   useEffect(() => {
-    if (!permitido) return; // solo si ingresó la clave
+/*     if (!permitido) return; // solo si ingresó la clave
 
     // Registrar Service Worker
     if ("serviceWorker" in navigator) {
@@ -18,7 +18,7 @@ export default function Chat() {
         .register("/sw.js")
         .then((reg) => console.log("Service worker registrado", reg))
         .catch((err) => console.error("Error registrando SW", err));
-    }
+    } */
 
     // Capturar el evento antes de instalar PWA
     const handler = (e: any) => {
@@ -28,7 +28,7 @@ export default function Chat() {
     window.addEventListener("beforeinstallprompt", handler);
 
     return () => window.removeEventListener("beforeinstallprompt", handler);
-  }, [permitido]);
+  }, []);
 
   const handleClave = () => {
     if (clave === "1234") {
