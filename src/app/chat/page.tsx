@@ -28,6 +28,8 @@ export default function ChatPage() {
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+  const oneMonthAgo = today;
+  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 
   interface ClienteConChat {
     nombre: string;
@@ -55,7 +57,7 @@ export default function ChatPage() {
       if (paramIdCliente) {
         res = await getChats(
           paramIdCliente,
-          today.toISOString(),
+          oneMonthAgo.toISOString(),
           "*",
           "asc",
           50,
@@ -237,9 +239,16 @@ export default function ChatPage() {
                   </p>
                   <p className="text-xs text-gray-400">
                     {clienteChats.ultimo_chat?.fecha_hora
-                      ? new Date(
+                      ? new Date(today).toLocaleDateString() >
+                        new Date(
                           clienteChats.ultimo_chat.fecha_hora,
-                        ).toLocaleTimeString()
+                        ).toLocaleDateString()
+                        ? new Date(
+                            clienteChats.ultimo_chat.fecha_hora,
+                          ).toLocaleString()
+                        : new Date(
+                            clienteChats.ultimo_chat.fecha_hora,
+                          ).toLocaleTimeString()
                       : ""}
                   </p>
                 </div>
@@ -308,7 +317,19 @@ export default function ChatPage() {
       <main className="flex-1 overflow-y-auto p-4 space-y-3">
         {mensajes.map((msg, i) => {
           let messageStyle = "bg-gray-200 text-gray-800 self-start mr-auto"; // Estilo por defecto
+          const msgDate = new Date(msg.fecha_hora);
 
+          // Crear objetos con solo el año, mes y día para comparar fechas sin horas
+          const msgDateOnly = new Date(
+            msgDate.getFullYear(),
+            msgDate.getMonth(),
+            msgDate.getDate(),
+          );
+          const todayOnly = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate(),
+          );
           if (msg.remitente === "cliente") {
             messageStyle = "bg-primary text-white self-end ml-auto";
           } else if (msg.remitente === "manual") {
@@ -324,7 +345,15 @@ export default function ChatPage() {
             >
               <p className="text-sm">{msg.mensaje}</p>
               <span className="text-xs opacity-70 block mt-1">
-                {new Date(msg.fecha_hora).toLocaleTimeString()}
+                {(() => {
+                  if (msgDateOnly < todayOnly) {
+                    // Mostrar fecha y hora
+                    return msgDate.toLocaleString(); // o toLocaleDateString() + ' ' + toLocaleTimeString()
+                  } else {
+                    // Mostrar solo la hora
+                    return new Date(msg.fecha_hora).toLocaleTimeString();
+                  }
+                })()}
               </span>
             </div>
           );

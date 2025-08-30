@@ -1,4 +1,10 @@
 const config = require("./src/config/config.json");
+const withPWA = require("next-pwa")({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === "development", // desactiva PWA en dev
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -15,4 +21,5 @@ const nextConfig = {
   eslint: { ignoreDuringBuilds: true },
 };
 
-module.exports = nextConfig;
+// exporta con PWA habilitado
+module.exports = withPWA(nextConfig);

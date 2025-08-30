@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Cart from "@/components/cart/Cart";
 import OpenCart from "@/components/cart/OpenCart";
 import config from "@/config/config.json";
@@ -13,6 +14,17 @@ import HideOnPaths from "@/components/HideOnPaths";
 // import ChatFloatingWindow from "@/components/ChatFloatingWindow"; // nuevo componente de chat
 
 import "@/styles/main.css";
+
+export const metadata: Metadata = {
+  title: "ChatBot WhatsApp",
+  description: "App de Chat tipo WhatsApp con soporte PWA",
+  manifest: "/manifest.json",
+  themeColor: "#00585a",
+  icons: {
+    icon: "/icons/icon-192x192.png",
+    apple: "/icons/icon-512x512.png",
+  },
+};
 
 export default function RootLayout({
   children,
