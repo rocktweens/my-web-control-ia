@@ -1,0 +1,382 @@
+// app/chat/page.tsx
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import {
+  createChat,
+  getChats,
+  getClientes,
+  updateCliente,
+  getUltimosChatsxClientes,
+} from "@/lib/strapi";
+import { Chat, Cliente } from "@/lib/strapi/types";
+import { enviarMensaje } from "@/lib/facebook";
+import { FaRobot, FaCheckCircle, FaChevronCircleLeft } from "react-icons/fa";
+import { set } from "date-fns";
+
+export default function ChatBot() {
+  const [mensajes, setMensajes] = useState<Chat[]>([]);
+  const [cliente, setCliente] = useState<Cliente>();
+  const [clientesConChats, setClientesConChats] = useState<any[]>([]);
+  const [nuevoMensaje, setNuevoMensaje] = useState("");
+  const [ultimoCliente, setUltimoCliente] = useState("");
+  const [cargando, setCargando] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const [inputNombre, setInputNombre] = useState("");
+  const [vistaChatActiva, setVistaChatActiva] = useState(false);
+  const ultimoClienteRef = useRef(ultimoCliente);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const oneMonthAgo = today;
+  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+
+  interface ClienteConChat {
+    nombre: string;
+    entidad_de: string;
+    ultimo_chat?: {
+      mensaje: string;
+      fecha_hora: string;
+    };
+  }
+
+  // Obtener lista de clientes con chats recientes
+  const fetchClientesConChats = async () => {
+    try {
+      const filtrados = await getUltimosChatsxClientes();
+      setClientesConChats(filtrados);
+    } catch (error) {
+      console.error("Error al obtener clientes con chats:", error);
+    }
+  };
+
+  const fetchMensajes = async (paramIdCliente: string) => {
+    console.log("último cliente:", paramIdCliente);
+    try {
+      let res = [] as Chat[];
+      if (paramIdCliente) {
+        res = await getChats(
+          paramIdCliente,
+          oneMonthAgo.toISOString(),
+          "*",
+          "asc",
+          50,
+        );
+      }
+
+      console.log("Mensajes del último cliente:", res);
+      if (res.length > 0) {
+        const idCliente = res[res.length - 1]?.entidad_de || "";
+        console.log("Idcliente:", idCliente);
+        setUltimoCliente(idCliente);
+        const clientes = await getClientes(idCliente);
+        console.log("clientes:", clientes);
+        setCliente(clientes[0]);
+        setInputNombre(clientes[0]?.nombre || "");
+        setChecked(clientes[0]?.es_manual || false);
+
+        const chatsUltimoCliente = res.filter(
+          (msg) => msg.entidad_de === idCliente,
+        );
+        console.log("Mensajes del último cliente:", chatsUltimoCliente);
+        setMensajes(chatsUltimoCliente);
+        setVistaChatActiva(true);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  // Mantener ref sincronizada
+  useEffect(() => {
+    ultimoClienteRef.current = ultimoCliente;
+  }, [ultimoCliente]);
+
+  // Cargar mensajes desde Strapi al iniciar
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      const id = ultimoClienteRef.current;
+      console.log("Cargando mensajes cada 3 segundos...", id);
+      if (id) fetchMensajes(id);
+      fetchClientesConChats();
+    }, 3000);
+    return () => clearInterval(interval); // limpieza al desmontar
+  }, []);
+
+  const enviarMensajeManual = async () => {
+    if (!nuevoMensaje.trim()) return;
+    setCargando(true);
+
+    try {
+      // Guardar en Strapi y enviar
+      await createChat({
+        entidad_de: ultimoCliente,
+        mensaje: nuevoMensaje,
+        remitente: "manual",
+        fecha_hora: new Date().toISOString(),
+        respondido_manual: true,
+      });
+
+      var respEnvio = await fetch("/api/customer/send-chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          isManual: true,
+          from: ultimoCliente,
+          reply: nuevoMensaje,
+        }),
+      });
+
+      //var respEnvio = await enviarMensaje(true, ultimoCliente, nuevoMensaje);
+      console.log("Respuesta de envío:", respEnvio);
+      const res = await getChats(
+        ultimoCliente,
+        today.toISOString(),
+        "*",
+        "asc",
+        50,
+      );
+
+      setMensajes((prev) => [...prev, ...res]);
+      setNuevoMensaje("");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  // Simulamos el fetch o acción cuando cambia el checkbox
+  const handleCheckboxChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const isChecked = e.target.checked;
+    setChecked(isChecked);
+
+    try {
+      console.log("Actualizando con valor:", ultimoCliente);
+      var resp = await updateCliente({
+        entidad_de: ultimoCliente,
+        es_manual: isChecked,
+      });
+      console.log("Cliente actualizado isChecked?:", resp);
+
+      if (isChecked) {
+        var textsend = "Te va a contestar un agente espera unos minutos...";
+
+        await createChat({
+          entidad_de: ultimoCliente,
+          mensaje: textsend,
+          remitente: "manual",
+          fecha_hora: new Date().toISOString(),
+          respondido_manual: true,
+        });
+
+        var respEnvio = await fetch("/api/customer/send-chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            isManual: true,
+            from: ultimoCliente,
+            reply: textsend,
+          }),
+        });
+      }
+    } catch (error) {
+      console.error("Error en fetch:", error);
+    }
+  };
+
+  // Botón de actualizar
+  const handleActualizar = async () => {
+    try {
+      console.log("Actualizando con valor:", inputNombre);
+      var resp = await updateCliente({
+        entidad_de: ultimoCliente,
+        nombre: inputNombre,
+      });
+      console.log(resp);
+      setInputNombre(resp?.nombre || "");
+      // await fetchDataConInput(inputNombre);
+    } catch (error) {
+      console.error("Error al actualizar:", error);
+    }
+  };
+
+  // VISTA: LISTADO DE CLIENTES
+  if (!vistaChatActiva) {
+    return (
+      <div className="p-6 bg-gray-50 min-h-screen">
+        <h2 className="text-2xl font-bold mb-4">
+          Clientes con Chats Recientes
+        </h2>
+        <ul className="space-y-3">
+          {clientesConChats.map((clienteChats) => (
+            <li
+              key={clienteChats.entidad_de}
+              className="bg-white p-4 shadow rounded hover:bg-gray-100 cursor-pointer"
+              onClick={() => {
+                setUltimoCliente(clienteChats.entidad_de);
+                fetchMensajes(clienteChats.entidad_de);
+              }}
+            >
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                  <span className="font-semibold text-gray-800">
+                    {clienteChats.nombre || "Sin nombre"}
+                  </span>
+                  <span className="text-sm text-gray-500 ml-2">
+                    ({clienteChats.entidad_de})
+                  </span>
+                </div>
+                <div className="text-sm text-gray-600 mt-2 md:mt-0 md:text-right">
+                  <p className="truncate max-w-xs">
+                    {clienteChats.ultimo_chat?.mensaje || "Sin mensaje"}
+                  </p>
+                  <p className="text-xs text-gray-400">
+                    {clienteChats.ultimo_chat?.fecha_hora
+                      ? new Date(today).toLocaleDateString() >
+                        new Date(
+                          clienteChats.ultimo_chat.fecha_hora,
+                        ).toLocaleDateString()
+                        ? new Date(
+                            clienteChats.ultimo_chat.fecha_hora,
+                          ).toLocaleString()
+                        : new Date(
+                            clienteChats.ultimo_chat.fecha_hora,
+                          ).toLocaleTimeString()
+                      : ""}
+                  </p>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-primary text-white p-4 shadow-md flex flex-col md:flex-row md:justify-between md:items-center space-y-4 md:space-y-0">
+        <h1 className="text-lg font-semibold text-white">
+          {`${inputNombre} - ${ultimoCliente}`}
+        </h1>
+
+        {/* Controles */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0 w-full md:w-auto">
+          {/* Checkbox */}
+          <label className="flex items-center space-x-2 text-sm">
+            <span>Modo Manual</span>
+            <input
+              type="checkbox"
+              checked={checked}
+              onChange={handleCheckboxChange}
+              className="form-checkbox h-4 w-4 text-primary"
+            />
+          </label>
+
+          {/* Input nombre + botón */}
+          <div className="flex items-center bg-white rounded-md overflow-hidden">
+            <input
+              type="text"
+              value={inputNombre}
+              onChange={(e) => setInputNombre(e.target.value)}
+              placeholder="Actualizar Nombre..."
+              className="text-sm text-black px-2 py-1 border border-gray-300 outline-none w-full sm:w-auto"
+            />
+            <button
+              onClick={handleActualizar}
+              className="px-2 py-1 bg-secondary hover:bg-primary text-white"
+              title="Actualizar"
+            >
+              <FaCheckCircle size={22} />
+            </button>
+          </div>
+
+          {/* Botón Volver */}
+          <button
+            onClick={() => {
+              setVistaChatActiva(false);
+              setUltimoCliente("");
+            }}
+            className="px-2 py-1 bg-secondary hover:bg-primary text-white flex items-center justify-center"
+            title="Volver al Listado"
+          >
+            <FaChevronCircleLeft size={22} />
+          </button>
+        </div>
+      </header>
+
+      {/* Lista de mensajes */}
+      <main className="flex-1 overflow-y-auto p-4 space-y-3">
+        {mensajes.map((msg, i) => {
+          let messageStyle = "bg-gray-200 text-gray-800 self-start mr-auto"; // Estilo por defecto
+          const msgDate = new Date(msg.fecha_hora);
+
+          // Crear objetos con solo el año, mes y día para comparar fechas sin horas
+          const msgDateOnly = new Date(
+            msgDate.getFullYear(),
+            msgDate.getMonth(),
+            msgDate.getDate(),
+          );
+          const todayOnly = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate(),
+          );
+          if (msg.remitente === "cliente") {
+            messageStyle = "bg-primary text-white self-end ml-auto";
+          } else if (msg.remitente === "manual") {
+            messageStyle = "bg-tertiary text-seventy self-start mr-auto"; // Estilo para manual
+          } else {
+            messageStyle = "bg-gray-100 text-gray-800 self-start mr-auto"; // Estilo para otros
+          }
+
+          return (
+            <div
+              key={`msg.entidad_de_${i}`}
+              className={`max-w-xs p-3 rounded-lg shadow-sm ${messageStyle}`}
+            >
+              <p className="text-sm">{msg.mensaje}</p>
+              <span className="text-xs opacity-70 block mt-1">
+                {(() => {
+                  if (msgDateOnly < todayOnly) {
+                    // Mostrar fecha y hora
+                    return msgDate.toLocaleString(); // o toLocaleDateString() + ' ' + toLocaleTimeString()
+                  } else {
+                    // Mostrar solo la hora
+                    return new Date(msg.fecha_hora).toLocaleTimeString();
+                  }
+                })()}
+              </span>
+            </div>
+          );
+        })}
+      </main>
+
+      {/* Input */}
+      <footer className="p-4 bg-white border-t flex space-x-2">
+        <input
+          type="text"
+          value={nuevoMensaje}
+          onChange={(e) => setNuevoMensaje(e.target.value)}
+          className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring focus:border-primary/70"
+          placeholder="Escribe tu mensaje..."
+        />
+        <button
+          onClick={enviarMensajeManual}
+          disabled={cargando}
+          className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-[#00585a] disabled:opacity-50"
+        >
+          {cargando ? "..." : "Enviar"}
+        </button>
+      </footer>
+    </div>
+  );
+}

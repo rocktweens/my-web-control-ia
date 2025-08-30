@@ -39,8 +39,6 @@ const getIconLibrary = (icon: string): IconMap | undefined => {
     }
     return lib;
   }, "");
-  console.log('libraryKey');
-  console.log(libraryKey);
   return iconLibraries[libraryKey];
 };
 
