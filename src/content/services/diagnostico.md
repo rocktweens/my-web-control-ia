@@ -7,9 +7,9 @@ draft: false
 
 #About Us
 servicio:
-  - title: "Diagnóstico Financiero Express"
+  - title: "Coaching enfocado en líderes"
     image: "/servicios/diagnostico.jpg"
-    content: "Obtén un panorama rápido y profesional de tu situación financiera.<br/><br/>
+    content: "Suma un socio estratégico bajo la Filosofía de ControlIA.<br/><br/>
     - Revisión de balances, cuentas, caja.<br/><br/>
     - Informe de salud financiera<br/><br/>
     - Plan de acción rápido"

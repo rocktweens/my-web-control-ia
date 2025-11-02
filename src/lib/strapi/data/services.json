@@ -42,12 +42,12 @@
   },
   {
     "slug": "diagnostico",
-    "title": "Diagnóstico Financiero Express",
-    "description": "Obtén un panorama rápido y profesional de tu situación financiera.",
+    "title": "Coaching enfocado en líderes",
+    "description": "Suma un socio estratégico bajo la Filosofía de ControlIA.",
     "detalle": [
-      "Revisión de balances, cuentas, caja",
-      "Informe de salud financiera",
-      "Plan de acción rápido"
+      "Filosofía bajo el Método de ControlIA",
+      "Aceleración de liderazgo",
+      "Programa socio estratégico"
     ],
     "image": "/servicios/diagnostico.jpg",
     "link": "/servicios/diagnostico",
@@ -55,13 +55,12 @@
   },
   {
     "slug": "startups",
-    "title": "Servicios para Startups",
+    "title": "Coaching enfocado en líderes",
     "description": "Acompañamos el crecimiento financiero desde el primer paso.",
     "detalle": [
-      "Plan financiero para inversión",
-      "Proyecciones 12-24 meses",
-      "KPI clave",
-      "Métricas SaaS"
+      "Filosofía bajo el Método de ControlIA",
+      "Aceleración de liderazgo",
+      "Programa socio estratégico"
     ],
     "image": "/servicios/startups.jpg",
     "link": "/servicios/startups",

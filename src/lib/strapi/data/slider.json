@@ -81,11 +81,11 @@
   },
   {
   "id": "service-004",
-    "title": "Diagnóstico Financiero Express",
-    "description": "Obtén un panorama rápido y profesional de tu situación financiera.",
+    "title": "Coaching enfocado en líderes",
+    "description": "Suma un socio estratégico bajo la Filosofía de ControlIA.",
     "featuredImage": {
     "url": "/slider/diagnostico.jpg",
-      "altText": "Diagnóstico Financiero Express",
+      "altText": "Coaching enfocado en líderes",
       "width": 1200,
       "height": 800
     },
@@ -94,7 +94,7 @@
     "images": [
       {
     "url": "/slider/diagnostico.jpg",
-        "altText": "Diagnóstico Financiero Express",
+        "altText": "Coaching enfocado en líderes",
         "width": 1000,
         "height": 600
       }

@@ -152,17 +152,17 @@
   },
   {
     "handle": "diagnostico",
-    "title": "Diagnóstico Financiero Express",
-    "description": "Obtén un panorama rápido y profesional de tu situación financiera.",
+    "title": "Coaching enfocado en líderes",
+    "description": "Suma un socio estratégico bajo la Filosofía de ControlIA.",
     "seo": {
-      "title": "Diagnóstico Financiero Express",
-      "description": "Obtén un panorama rápido y profesional de tu situación financiera."
+      "title": "Coaching enfocado en líderes",
+      "description": "Suma un socio estratégico bajo la Filosofía de ControlIA."
     },
     "updatedAt": "2025-06-27T10:00:00Z",
     "path": "/colecciones/diagnostico",
     "image": {
       "url": "/servicios/diagnostico.jpg",
-      "altText": "Diagnóstico Financiero Express",
+      "altText": "Coaching enfocado en líderes",
       "width": 1000,
       "height": 600
     },
@@ -172,17 +172,17 @@
   },
   {
     "handle": "startups",
-    "title": "Servicios para Startups",
+    "title": "Coaching enfocado en líderes",
     "description": "Acompañamos el crecimiento financiero desde el primer paso.",
     "seo": {
-      "title": "Servicios para Startups",
+      "title": "Coaching enfocado en líderes",
       "description": "Acompañamos el crecimiento financiero desde el primer paso."
     },
     "updatedAt": "2025-06-27T10:00:00Z",
     "path": "/colecciones/startups",
     "image": {
       "url": "/servicios/startups.jpg",
-      "altText": "Servicios para Startups",
+      "altText": "Coaching enfocado en líderes",
       "width": 1000,
       "height": 600
     },

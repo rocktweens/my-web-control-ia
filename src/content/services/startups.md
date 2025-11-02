@@ -7,12 +7,11 @@ draft: false
 
 #About Us
 servicio:
-  - title: "Servicios para Startups"
+  - title: "Coaching enfocado en líderes"
     image: "/servicios/startups.jpg"
     content: "Acompañamos el crecimiento financiero desde el primer paso.<br/><br/>
-    - Plan financiero para inversión<br/><br/>
-    - Proyecciones 12-24 meses<br/><br/>
-    - KPI clave<br/><br/>
-    - Métricas SaaS"
+    - Filosofía bajo el Método de ControlIA<br/><br/>
+    - Aceleración de liderazgo<br/><br/>
+    - Programa socio estratégico"
 
 ---
