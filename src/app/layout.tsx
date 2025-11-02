@@ -15,7 +15,7 @@ import HideOnPaths from "@/components/HideOnPaths";
 
 import "@/styles/main.css";
 
-export const metadata: Metadata = {
+/* export const metadata: Metadata = {
   title: "ChatBot WhatsApp",
   description: "App de Chat tipo WhatsApp con soporte PWA",
   manifest: "/manifest.json",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     icon: "/icons/logo-no-bg-origin-192x192.png",
     apple: "/icons/logo-no-bg-origin-512x512.png",
   },
-};
+}; */
 
 export default function RootLayout({
   children,
